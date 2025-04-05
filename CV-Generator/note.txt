@@ -1,0 +1,2 @@
+compile css :
+php bin/console asset-map:compile
