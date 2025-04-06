@@ -8,7 +8,9 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "bootstrap": "^5.3.5"
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.5",
+    "jquery": "^3.7.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
