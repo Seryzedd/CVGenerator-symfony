@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="40 40 120 120">
+  <!-- Fond : transparent -->
+
+  <!-- Feuille -->
+  <rect x="40" y="40" width="120" height="120" rx="12" ry="12" fill="#70bcff"/>
+
+  <!-- Coin replié -->
+  <polygon points="160,40 160,80 120,40" fill="#71ff90"/>
+
+  <!-- Silhouette utilisateur (agrandie) -->
+  <circle cx="100" cy="75" r="24" fill="#ffffff"/>
+  <path d="M72 110 Q100 95, 128 110 Q120 135, 80 135 Q72 120, 72 110" fill="#ffffff"/>
+</svg>
+
+
+

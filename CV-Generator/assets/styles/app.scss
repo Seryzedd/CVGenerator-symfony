@@ -1,11 +1,48 @@
 // assets/styles/global.scss
 
 // customize some Bootstrap variables
-$primary: darken(#7aaad4, 20%);
+$primary: #70bcff;
+$secondary: #71ff90;
+$danger: #ff4c4c;
+$success: #38ff10;
+$warning: #ffe868;
+$info: #64ffe5;
+$white: #fff;
+$light: #f9fcfd;
+$dark: #2b2b2b;
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
 
 // the ~ allows you to reference things in node_modules
 @import '../../node_modules/bootstrap/scss/bootstrap';
 
 body {
     background-color: unset !important;
+}
+
+@view-transition {
+    navigation: auto;
+}
+
+.btn-primary, .btn-secondary, .btn-dark {
+    color: $white;
+    transition: 0.2s;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.nav-item:hover {
+    background-color: darken($light, 10%);
+    transition: 0.2s;
 }
