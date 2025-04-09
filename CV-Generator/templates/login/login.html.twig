@@ -33,6 +33,8 @@
                 <label for="_remember_me">{% trans %}Remember me{% endtrans %}</label>
             </div>
 
+            <p class=''>{% trans %}Forgot my password{% endtrans %} ? <a href="{{ path('app_forgot_password_request') }}">{% trans %}Reset password{% endtrans %}</a></p>
+
             <button class="btn btn-lg btn-primary" type="submit">
                 {% trans %}Login{% endtrans %}
             </button>

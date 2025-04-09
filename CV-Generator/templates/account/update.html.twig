@@ -1,0 +1,18 @@
+{% extends 'account/index.html.twig' %}
+
+{% block title %}{% trans %}Updating my account{% endtrans %}{% endblock %}
+
+{% block account_content %}
+    <h1 class="text-secondary text-end">{% trans %}Updating my account{% endtrans %}</h1>
+    <div class="p-4 border">
+        {{ form_start(form) }}
+            {{ form_row(form.gender) }}
+            {{ form_row(form.firstname) }}
+            {{ form_row(form.lastname) }}
+            <div class="d-flex justify-content-between">
+                <a href="{{ path('app_login') }}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left me-2"></i>{% trans %}Return{% endtrans %}</a>
+                <button type="submit" class="btn btn-primary">{% trans %}Update{% endtrans %}</button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

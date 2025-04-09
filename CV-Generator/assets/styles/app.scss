@@ -30,8 +30,8 @@ body {
     background-color: unset !important;
 }
 
-@view-transition {
-    navigation: auto;
+.text-center input {
+    text-align: center;
 }
 
 .btn-primary, .btn-secondary, .btn-dark {
@@ -41,6 +41,10 @@ body {
 
 .btn {
     border-radius: 0;
+}
+
+[class*="btn-outline"]:not(.btn-light):not(.btn-outline-light):hover {
+    color: $white;
 }
 
 .nav-item:hover {
