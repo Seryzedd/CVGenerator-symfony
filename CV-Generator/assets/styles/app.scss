@@ -10,6 +10,7 @@ $info: #64ffe5;
 $white: #fff;
 $light: #f9fcfd;
 $dark: #2b2b2b;
+$dark-grey: #e0e1e1;
 
 $theme-colors: (
   "primary":    $primary,
@@ -45,4 +46,89 @@ body {
 .nav-item:hover {
     background-color: darken($light, 10%);
     transition: 0.2s;
+}
+
+// ---------- checkbox styles -------------
+body {
+    min-height: 95vh;
+    display: grid;
+    grid-template-areas:
+    "header header"
+    "main main";
+    grid-template-columns: fit-content 3fr;
+}
+
+main {
+    grid-area: main;
+}
+
+body header {
+    grid-area: header;
+}
+
+//   ---------- checkbox -----------
+
+.checkbox input[type="checkbox"] {
+  visibility: hidden;
+  display: none;
+}
+
+.checkbox *,
+.checkbox::after,
+.checkbox::before {
+  box-sizing: border-box;
+}
+
+.checkbox label {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 6px;
+}
+
+.checkbox label::before {
+    width: 40px;
+    border-radius: 20px;
+    height: 25px;
+    background-color: $dark-grey;
+    content: "";
+    margin-right: 6px;
+    display: inline-block;
+    border: solid 1px $gray-500;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1)
+}
+
+.checkbox label::after {
+    position:absolute;
+    content: "";
+    left: 2px;;
+    width: 21px;
+    border-radius: 20px;
+    height: 20px;
+    background-color: $white;
+    transition: 0.2s;
+}
+
+.checkbox:has(input[type=checkbox]:checked) label::before {
+    background-color: $success;
+    content: "";
+}
+
+.checkbox:has(input[type=checkbox]:checked) label::after {
+    position:absolute;
+    content: "";
+    left: 17px;
+    width: 21px;
+    border-radius: 20px;
+    height: 20px;
+    background-color: $white;
+    transition: 0.2s;
+}
+
+.checkbox label:hover::before {
+    background-color: darken($dark-grey, 20%);
+}
+
+.checkbox:has(input[type=checkbox]:checked) label:hover:before {
+    background-color: darken($success, 20%);
 }

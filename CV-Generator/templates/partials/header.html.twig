@@ -31,13 +31,34 @@
                         </li>
                     </ul>
                     
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 justify-content-end">
-                        <li class="nav-item" title="{% trans %}Logout{% endtrans %}">
-                            <a class="nav-link">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    {% if app.user is null %}
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 justify-content-end">
+                            <li class="nav-item" title="{% trans %}Login{% endtrans %}">
+                                <a class="nav-link" href="{{ path('app_login') }}">
+                                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item" title="{% trans %}Register{% endtrans %}">
+                                <a class="nav-link" href="{{ path('app_register') }}">
+                                    <i class="fa-regular fa-address-card"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 justify-content-end">
+                            <li class="nav-item" title="{% trans %}Register{% endtrans %}">
+                                <a class="nav-link" href="">
+                                    <i class="fa-regular fa-user"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item" title="{% trans %}Login{% endtrans %}">
+                                <a class="nav-link text-danger" href="{{ path('app_logout') }}">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                    
                 </div>
             </div>
         </nav>

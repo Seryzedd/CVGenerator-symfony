@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+    <div class="bg-light container p-4">
+
+        <h1 class="text-primary">Register</h1>
+
+        <p>{% trans %}To create an account, fill out the form{% endtrans %}.</p>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email) }}
+
+            {{ form_row(registrationForm.gender) }}
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(registrationForm.firstname) }}
+                </div>
+
+                <div class="col-md-6">
+                    {{ form_row(registrationForm.lastname) }}
+                </div>
+            </div>
+
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password'
+            }) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            <p class="">{% trans %} I already have an account.{% endtrans %} <a href="" class="btn-link">{% trans %}Connect{% endtrans %}</a></p>
+
+            <div class="d-flex justify-content-between">
+                <div class="">
+                    <a href="" class="btn btn-outline-primary">{% trans %}Cancel{% endtrans %}</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">{% trans %}Register{% endtrans %}</button>
+            </div>
+        {{ form_end(registrationForm) }}
+    </div>
+    
+{% endblock %}
