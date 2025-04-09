@@ -46,15 +46,21 @@
                         </ul>
                     {% else %}
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 justify-content-end">
-                            <li class="nav-item" title="{% trans %}Register{% endtrans %}">
-                                <a class="nav-link" href="">
+                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-regular fa-user"></i>
                                 </a>
-                            </li>
-                            <li class="nav-item" title="{% trans %}Login{% endtrans %}">
-                                <a class="nav-link text-danger" href="{{ path('app_logout') }}">
-                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ path('app_account') }}"><i class="fa-regular fa-user me-2"></i>{% trans %}My account informations{% endtrans %}</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square me-2"></i>{% trans %}Update my account{% endtrans %}</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-key me-2"></i>{% trans %}Change password{% endtrans %}</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item text-danger" href="{{ path('app_logout') }}">
+                                            <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>{% trans %}Logout{% endtrans %}
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     {% endif %}
