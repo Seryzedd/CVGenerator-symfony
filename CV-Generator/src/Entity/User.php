@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -48,6 +50,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Coordinates $coordinates = null;
+
+    /**
+     * @var Collection<int, CurriculumVitae>
+     */
+    #[ORM\OneToMany(targetEntity: CurriculumVitae::class, mappedBy: 'user')]
+    private Collection $curriculumVitaes;
+
+    public function __construct()
+    {
+        $this->description = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,6 +198,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->coordinates = $coordinates;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CurriculumVitae>
+     */
+    public function getCurriculumVitaes(): Collection
+    {
+        return $this->curriculumVitaes;
+    }
+
+    public function addCurriculumVitaes(CurriculumVitae $curriculumVitaes): static
+    {
+        if (!$this->curriculumVitaes->contains($curriculumVitaes)) {
+            $this->curriculumVitaes->add($curriculumVitaes);
+            $curriculumVitaes->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCurriculumVitaes(CurriculumVitae $curriculumVitaes): static
+    {
+        if ($this->curriculumVitaes->removeElement($curriculumVitaes)) {
+            // set the owning side to null (unless already changed)
+            if ($curriculumVitaes->getUser() === $this) {
+                $curriculumVitaes->setUser(null);
+            }
+        }
 
         return $this;
     }

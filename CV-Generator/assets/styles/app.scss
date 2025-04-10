@@ -70,6 +70,16 @@ body header {
     grid-area: header;
 }
 
+// ------------ image preview -------------
+
+#img_preview > img {
+    max-width: 100%;
+}
+
+img {
+    max-width: 100%;
+}
+
 //   ---------- checkbox -----------
 
 .checkbox input[type="checkbox"] {
