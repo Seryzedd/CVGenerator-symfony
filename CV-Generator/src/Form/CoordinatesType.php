@@ -2,36 +2,34 @@
 
 namespace App\Form;
 
+use App\Entity\Coordinates;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use App\Form\CoordinatesType;
 
-class UserInformationType extends AbstractType
+class CoordinatesType extends AbstractType
 {
-    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
-            ->add("gender", ChoiceType::class, [
-                'choices' => [
-                    "Mr" => "Mr",
-                    'Miss' => "miss",
-                    'Mrs' => "Mrs"
-                ]
+            ->add('phone')
+            ->add('street')
+            ->add('zipcode')
+            ->add('city')
+            ->add('country', ChoiceType::class, [
+                'choices' => array_flip(Coordinates::COUNTRY_LIST)
             ])
-            ->add('firstname')
-            ->add('lastname')
-            ->add('coordinates', CoordinatesType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => Coordinates::class,
         ]);
     }
 }

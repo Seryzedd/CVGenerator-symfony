@@ -46,6 +46,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Coordinates $coordinates = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +168,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getCoordinates(): ?Coordinates
+    {
+        return $this->coordinates;
+    }
+
+    public function setCoordinates(Coordinates $coordinates): static
+    {
+        // set the owning side of the relation if necessary
+        if ($coordinates->getUser() !== $this) {
+            $coordinates->setUser($this);
+        }
+
+        $this->coordinates = $coordinates;
 
         return $this;
     }
