@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Create Curriculum Vitae{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="container bg-light p-4 mt-4">
+        <h1 class="text-primary">{% trans %}Create new Curriculum vitae{% endtrans %}</h1>
+        {% include 'curriculum_vitae/CVform.html.twig' with {'form': form} %}
+    </div>
+{% endblock %}

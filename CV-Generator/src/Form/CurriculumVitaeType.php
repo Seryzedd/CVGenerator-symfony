@@ -26,7 +26,10 @@ class CurriculumVitaeType extends AbstractType
             ->add('template', ChoiceType::class, [
                 'choices' => $templates
             ])
-            ->add('profileImg', FileType::class)
+            ->add('profileImg', FileType::class, [
+                'mapped' => false,
+                'required' => false
+            ])
             ->add('sideColor', ColorType::class)
             ->add('mainColor', ColorType::class)
             ->add('textSideColor', ColorType::class)

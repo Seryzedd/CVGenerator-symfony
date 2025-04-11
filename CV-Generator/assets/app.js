@@ -10,6 +10,8 @@ $('.alert .btn-close').on('click', function() {
 })
 
 $(document).ready(function() {
+    $('.alert').fadeIn('slow', 'swing');
+
     setTimeout(function() {
         let alertBlock = jQuery('.alert')
 
@@ -19,9 +21,9 @@ $(document).ready(function() {
 
             setTimeout(function() {
                 block.remove()
-            }, 6000)
+            }, 10000)
         })
-    }, 1000) 
+    }, 5000) 
 })
 
 $('input[type="file"]').on('change', function() {

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\CurriculumVitaeType;
 use App\Entity\CurriculumVitae;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Route('/curriculum-vitae')]
 final class CurriculumVitaeController extends AbstractController
@@ -29,29 +30,21 @@ final class CurriculumVitaeController extends AbstractController
     #[Route('/create', name: 'app_curriculum_vitae_new')]
     public function create(Request $request): Response 
     {
-        $user = $this->getUser();
-
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
-
+        
         $newCV = new CurriculumVitae();
 
-        $user->addCurriculumVitaes($newCV);
+        $this->getUser()->addCurriculumVitaes($newCV);
 
         $form = $this->createForm(CurriculumVitaeType::class, $newCV);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
 
             $file = $form['profileImg']->getData();
 
-            $imgContent = file_get_contents($file->getPathname());
-
-            $b64img = 'data:image/' . $file->guessExtension() . ';base64,' . base64_encode($imgContent);
-
-            $data->setProfileImg($b64img);
+            if ($file) {
+                $this->updateCVProfileImg($file, $newCV);
+            }
 
             $this->entityManager->persist($data);
             $this->entityManager->flush();
@@ -61,11 +54,50 @@ final class CurriculumVitaeController extends AbstractController
                'Password successfully updated !'
             );
 
-            return $this->redirectToRoute('app_curriculum_vitae');
+            return $this->redirectToRoute('app_curriculum_vitae_update', ['id' => $newCV->getId()]);
         }
 
         return $this->render('curriculum_vitae/new.html.twig', [
             'form' => $form
         ]);
+    }
+
+    #[Route('/update/{id}', name: 'app_curriculum_vitae_update')]
+    public function update(Request $request, CurriculumVitae $id): Response 
+    {
+        
+        $form = $this->createForm(CurriculumVitaeType::class, $id);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $file = $form['profileImg']->getData();
+            
+            if ($file) {
+                $this->updateCVProfileImg($file, $id);
+            }
+
+            $this->entityManager->persist($data);
+            $this->entityManager->flush();
+
+            $this->addFlash(
+               'success',
+               'Password successfully updated !'
+            );
+        }
+
+        return $this->render('curriculum_vitae/new.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    private function updateCVProfileImg(UploadedFile $file, CurriculumVitae $cv): void 
+    {
+        $imgContent = file_get_contents($file->getPathname());
+
+        $b64img = 'data:image/' . $file->guessExtension() . ';base64,' . base64_encode($imgContent);
+
+        $cv->setProfileImg($b64img);
     }
 }

@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-6">
+        {{ form_start(form) }}
+            {{ form_row(form.name) }}
+
+            <div class="row align-items-center">
+                <div class="col-4 offset-4 col-md-2 offset-md-0">
+                    <div id="img_preview" class="p-2 text-center text-muted">
+                        <i class="fa-solid fa-camera fa-lg"></i>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-10">
+                    {{ form_row(form.profileImg) }}
+                </div>
+
+                
+            </div>
+            
+            {{ form_row(form.template) }}
+
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.sideColor) }}
+                    {{ form_row(form.textSideColor) }}
+                </div>
+
+                <div class="col-md-6">
+                    {{ form_row(form.mainColor) }}
+                    {{ form_row(form.textMainColor) }}
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a href="{{ path('app_curriculum_vitae') }}" class="btn btn-outline-dark"><i class="fa-solid fa-arrow-left me-2"></i>{% trans %}Back to list{% endtrans %}</a>
+                <button type="submit" class="btn btn-primary">{% trans %}Save{% endtrans %}</button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+
+    <div class="col-md-6">
+        {% set templateName = form.template.vars.data %}
+        {% if templateName is null %}
+            {% set templateName = form.template.vars.choices|first.value %}
+        {% endif %}
+        
+        <iframe style="width: 100%; max-width: 21cm; height: 29.7cm;" srcdoc="{% include 'curriculum_vitae/templates/' ~ templateName with {'cv': form.vars.data} %}"></iframe>
+    </div>
+</div>
