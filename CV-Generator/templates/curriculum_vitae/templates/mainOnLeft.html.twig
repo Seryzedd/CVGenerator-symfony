@@ -1,24 +1,29 @@
-<style>
-    body {
-        width: 21cm;
-        height: 29.7cm;
-        display: flex;
-    }
-
-    aside {
-        width: 20%;
-        background-color: #ccc;
-    }
-
-    main {
-        width: 80%;
-    }
-</style>
 
 <body>
+    <style>
+        body {
+            width: 21cm;
+            height: 29.7cm;
+            display: flex;
+        }
+
+        aside {
+            width: 20%;
+            background-color: {{ cv.sideColor }};
+            color: {{ cv.textSideColor }};
+        }
+
+        main {
+            width: 80%;
+            background-color: {{ cv.mainColor }};
+            color: {{ cv.textMainColor }};
+        }
+    </style>
     <aside>
+        test
     </aside>
     <main>
         test
     </main>
+
 </body>

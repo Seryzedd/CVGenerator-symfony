@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <p class="mb-0">{{ cv.template|replace({'.html.twig': ''}) }}</p>
+                        <p class="mb-0"><span class="text-muted">{% trans %}Template{% endtrans %} :</span> {{ cv.template|replace({'.html.twig': ''}) }}</p>
                     </div>
 
                     <div class="col-md-4 text-end">

@@ -87,7 +87,7 @@ final class CurriculumVitaeController extends AbstractController
             );
         }
 
-        return $this->render('curriculum_vitae/new.html.twig', [
+        return $this->render('curriculum_vitae/update.html.twig', [
             'form' => $form
         ]);
     }

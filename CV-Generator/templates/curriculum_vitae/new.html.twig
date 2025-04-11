@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% trans with {'%name%': form.name.vars.data} %}Update Curriculum Vitae %name%{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Create Curriculum Vitae{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="container bg-light p-4 mt-4">
-        <h1 class="text-primary">{% trans with {'%name%': form.name.vars.data} %}Update Curriculum Vitae %name%{% endtrans %}</h1>
+        <h1 class="text-primary">{% trans %}Create Curriculum Vitae{% endtrans %}</h1>
         {% include 'curriculum_vitae/CVform.html.twig' with {'form': form} %}
     </div>
 {% endblock %}

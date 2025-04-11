@@ -34,7 +34,7 @@ body {
     text-align: center;
 }
 
-.btn-primary, .btn-secondary, .btn-dark {
+.btn:not([class*='btn-outline']):not(.btn-light) {
     color: $white;
     transition: 0.2s;
 }

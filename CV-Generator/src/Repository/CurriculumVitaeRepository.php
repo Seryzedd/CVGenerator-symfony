@@ -25,7 +25,7 @@ class CurriculumVitaeRepository extends ServiceEntityRepository
            return $this->createQueryBuilder('c')
                ->where('c.user = :userId')
                ->setParameter('userId', $user->getId())
-               ->orderBy('c.id', 'ASC')
+               ->orderBy('c.updatedAt', 'DESC')
                ->getQuery()
                ->getResult()
            ;

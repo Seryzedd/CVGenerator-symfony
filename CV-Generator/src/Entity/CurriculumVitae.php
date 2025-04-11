@@ -5,7 +5,9 @@ namespace App\Entity;
 use App\Repository\CurriculumVitaeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: CurriculumVitaeRepository::class)]
 class CurriculumVitae
 {
@@ -38,6 +40,18 @@ class CurriculumVitae
 
     #[ORM\Column(length: 10, nullable: true)]
     private string $textMainColor = "";
+
+    #[ORM\Column(type: "datetime", nullable: true)]
+    private \Datetime $createdAt;
+
+    #[ORM\Column(type: "datetime", nullable: true)]
+    private \Datetime $updatedAt;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -106,7 +120,7 @@ class CurriculumVitae
 
     public function getMainColor(): string 
     {
-        return $this->sideColor;
+        return $this->mainColor;
     }
 
     public function setMainColor(string $color): self
@@ -138,5 +152,23 @@ class CurriculumVitae
         $this->textMainColor = $color;
         
         return $this;
+    }
+
+    #[ORM\PreUpdate]
+    public function setCreatedAtValue(): self
+    {
+        $this->updatedAt = new \DateTime();
+
+        return $this;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
