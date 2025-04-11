@@ -100,4 +100,18 @@ final class CurriculumVitaeController extends AbstractController
 
         $cv->setProfileImg($b64img);
     }
+
+    #[Route('/remove/{id}', name: 'app_curriculum_vitae_remove')]
+    public function remove(CurriculumVitae $id)
+    {
+        $this->entityManager->remove($id);
+        $this->entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'CV have been deleted.'
+         );
+
+        return $this->redirectToRoute('app_curriculum_vitae');
+    }
 }
