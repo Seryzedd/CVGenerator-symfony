@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\CurriculumVitae;
 use App\Entity\User;
+use App\Form\BlockType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Service\FindFilesService;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class CurriculumVitaeType extends AbstractType
 {
@@ -34,6 +36,11 @@ class CurriculumVitaeType extends AbstractType
             ->add('mainColor', ColorType::class)
             ->add('textSideColor', ColorType::class)
             ->add('textMainColor', ColorType::class)
+            ->add('blocks', CollectionType::class, [
+                'entry_type' => BlockType::class,
+                'allow_add' => true,
+                'allow_delete' => true
+            ])
         ;
     }
 

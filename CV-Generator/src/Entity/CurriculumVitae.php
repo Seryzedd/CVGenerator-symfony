@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CurriculumVitaeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -47,10 +49,17 @@ class CurriculumVitae
     #[ORM\Column(type: "datetime", nullable: true)]
     private \Datetime $updatedAt;
 
+    /**
+     * @var Collection<int, Block>
+     */
+    #[ORM\OneToMany(targetEntity: Block::class, mappedBy: 'cv', orphanRemoval: true)]
+    private Collection $blocks;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->blocks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,5 +179,35 @@ class CurriculumVitae
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection<int, Block>
+     */
+    public function getBlocks(): Collection
+    {
+        return $this->blocks;
+    }
+
+    public function addBlock(Block $block): static
+    {
+        if (!$this->blocks->contains($block)) {
+            $this->blocks->add($block);
+            $block->setCv($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlock(Block $block): static
+    {
+        if ($this->blocks->removeElement($block)) {
+            // set the owning side to null (unless already changed)
+            if ($block->getCv() === $this) {
+                $block->setCv(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -1,4 +1,3 @@
-
 <body>
     <style>
         body {
@@ -8,22 +7,38 @@
         }
 
         aside {
-            width: 20%;
+            width: 25%;
             background-color: {{ cv.sideColor }};
             color: {{ cv.textSideColor }};
+            padding: 20px;
         }
 
         main {
-            width: 80%;
+            width: 75%;
             background-color: {{ cv.mainColor }};
             color: {{ cv.textMainColor }};
+            padding: 20px;
+        }
+
+        h1, h2, h3, h4, h5, p {
+            margin-bottom: 5px;
+            margin-top: 0;
         }
     </style>
     <aside>
-        test
+        <h2>Coordonnées</h2>
+        <h3><strong>{{ cv.user.email }}</strong></h3>
+        {% if cv.user.coordinates %}
+            <p><strong>{% trans %}Adress{% endtrans %}</strong></p>
+            <p>{{ cv.user.coordinates.phone }}</p>
+            <p>{{ cv.user.coordinates.street }}</p>
+            <p>{{ cv.user.coordinates.zipcode }} {{ cv.user.coordinates.city }}</p>
+            <p>{{ cv.user.coordinates.clearCountry }}</p>
+        {% endif %}
+        
     </aside>
     <main>
-        test
+        <h1>{{ cv.user.gender }} {{ cv.user.firstname }} {{ cv.user.lastname }}</h1>
+        <h2>{{ cv.name }}</h2>
     </main>
-
 </body>
