@@ -46,7 +46,7 @@ final class CurriculumVitaeController extends AbstractController
                 $this->updateCVProfileImg($file, $newCV);
             }
 
-            $this->entityManager->persist($data);
+            $this->entityManager->persist($newCV);
             $this->entityManager->flush();
 
             $this->addFlash(

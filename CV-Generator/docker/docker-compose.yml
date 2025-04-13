@@ -1,0 +1,36 @@
+version: '3.0'
+services:
+    web:
+        image: php:8.3-apache
+        container_name: CV-gen
+        build:
+            context: ./
+        volumes:
+            - ./../:/var/www/html
+#            - ./apache2.conf:/etc/apache2/apache2.conf
+        depends_on:
+            - mysql
+        links:
+            - mysql:mysql
+        networks:
+            - bridge_network
+        ports:
+            - "8080:80"
+#        command: cd /var/www/html && apt-get update && docker-php-ext-install mysqli pdo pdo_mysql && docker-php-ext-enable pdo_mysql
+
+    mysql:
+        image: mariadb:10.2
+        container_name: db
+        ports:
+            - "3306:3306"
+        environment:
+            - MYSQL_ROOT_PASSWORD=64ra97!
+            - MYSQL_DATABASE=CV-Generator
+            - MYSQL_USER=admin
+            - MYSQL_PASSWORD=fapirmaf
+        networks:
+            - bridge_network
+
+networks:
+  bridge_network:
+    driver: bridge
