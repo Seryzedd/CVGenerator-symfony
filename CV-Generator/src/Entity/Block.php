@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BlockRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BlockRepository::class)]
@@ -27,6 +29,17 @@ class Block
 
     #[ORM\Column(length: 150)]
     private ?string $placement = "";
+
+    /**
+     * @var Collection<int, Line>
+     */
+    #[ORM\OneToMany(targetEntity: Line::class, mappedBy: 'block', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    private Collection $blockLines;
+
+    public function __construct()
+    {
+        $this->blockLines = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -65,6 +78,36 @@ class Block
     public function setPlacement(string $place): self 
     {
         $this->placement = $place;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Line>
+     */
+    public function getBlockLines(): Collection
+    {
+        return $this->blockLines;
+    }
+
+    public function addBlockLine(Line $blockLine): static
+    {
+        if (!$this->blockLines->contains($blockLine)) {
+            $this->blockLines->add($blockLine);
+            $blockLine->setBlock($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlockLine(Line $blockLine): static
+    {
+        if ($this->blockLines->removeElement($blockLine)) {
+            // set the owning side to null (unless already changed)
+            if ($blockLine->getBlock() === $this) {
+                $blockLine->setBlock(null);
+            }
+        }
 
         return $this;
     }

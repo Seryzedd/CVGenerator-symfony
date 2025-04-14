@@ -71,7 +71,12 @@ final class CurriculumVitaeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-
+            dump($data);
+            die;
+            
+            if ($data) {
+                # code...
+            }
             $file = $form['profileImg']->getData();
             
             if ($file) {
@@ -104,6 +109,7 @@ final class CurriculumVitaeController extends AbstractController
     #[Route('/remove/{id}', name: 'app_curriculum_vitae_remove')]
     public function remove(CurriculumVitae $id)
     {
+
         $this->entityManager->remove($id);
         $this->entityManager->flush();
 
@@ -114,4 +120,6 @@ final class CurriculumVitaeController extends AbstractController
 
         return $this->redirectToRoute('app_curriculum_vitae');
     }
+
+    
 }

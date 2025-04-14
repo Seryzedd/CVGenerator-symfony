@@ -1,14 +1,62 @@
 <div class="row">
+    <h3 class="col-12 text-primary">{% trans %}Blocks{% endtrans %}</h3>
     {% for entity in form %}
-        <div class="col-12 px-2 py-2 {% if not loop.last %}border-bottom{% endif %}">
-            {{ form_widget(entity) }}
+        <div class="col-12 px-2 py-2 collection-elements {% if not loop.last %}border-bottom{% endif %}">
+            {{ form_row(entity.title) }}
+            {{ form_row(entity.placement) }}
+
+            <!-- Add blocklines -->
+            <button class="btn btn-light d-flex w-100 justify-content-between align-items-center text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapselines-{{ entity.vars.data.id }}" aria-expanded="false" aria-controls="collapselines-{{ entity.vars.data.id }}">
+                {% trans %}Lines{% endtrans %}
+                <i class="fa-solid fa-angle-down"></i>
+            </button>
+            <div class="collapse" id="collapselines-{{ entity.vars.data.id }}">
+                <div class="card card-body">
+                    <div classe="col-12 px-4">
+                        <div class="row">
+                            <h3 class="col-12 text-primary">{% trans %}Lines{% endtrans %}</h3>
+                            {% for subForm in entity.blockLines %}
+                                <div class="col-6">
+                                    {{ form_row(subForm.startAt) }}
+                                </div>
+                                <div class="col-6">
+                                    {{ form_row(subForm.endAt) }}
+                                </div>
+        
+                                <div type="submit" class="col-12 px-2 py-2 {% if not loop.last %}border-bottom{% endif %}">
+                                    {{ form_widget(subForm) }}
+                                </div>
+
+                                <div class="d-flex justify-content-end mb-2">
+                                    <button value="{{ subForm.vars.data.id }}" name="remove_line" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                </div>
+                            {% endfor %}
+                            
+                            {% if form.vars.allow_add %}
+                                <ul class="lines mb-0" data-index="{{ entity.blockLines|length > 0 ? entity.blockLines|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(entity.blockLines.vars.prototype)|e('html_attr') }}"></ul>
+                                
+                                <div class="col-12 text-end mb-2">
+                                    <button type="button" class="btn btn-secondary add_collection" data-collection-holder-class="lines">
+                                        <span class="fa fa-plus"></span>
+                                        {% trans with {'%buttonName%': "Add new line"} %}%buttonName%{% endtrans %}
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-end py-2">
+                <button type="button" value="{{ entity.vars.data.id }}" class="btn btn-danger remove-btn" ><i class="fa-solid fa-trash-can"></i></button>
+            </div>
         </div>
     {% endfor %}
     
     {% if form.vars.allow_add %}
         <ul class="{{ classname }} mb-0" data-index="{{ form|length > 0 ? form|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.vars.prototype)|e('html_attr') }}"></ul>
         
-        <div class="col-12 text-end mb-2">
+        <div class="col-12 text-end pb-2">
             <button type="button" class="btn btn-secondary add_collection" data-collection-holder-class="{{ classname }}">
                 <span class="fa fa-plus"></span>
                 {% trans with {'%buttonName%': buttonName} %}%buttonName%{% endtrans %}

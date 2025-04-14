@@ -61,8 +61,6 @@ document
 function addFormToCollection(e) {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
-    collectionHolder.classList.add('border-top');
-    collectionHolder.classList.add('border-dark');
     collectionHolder.classList.add('py-2');
 
     const item = document.createElement('li');
@@ -79,5 +77,34 @@ function addFormToCollection(e) {
 
     collectionHolder.appendChild(item);
 
+    const button = document.createElement('button');
+    button.classList.add('remove-new');
+    button.classList.add('btn');
+    button.classList.add('btn-danger');
+    button.setAttribute('type', 'button');
+    button.innerText = "Remove new block";
+
+    button.addEventListener('click', function(event) {
+        removecontent($(collectionHolder))
+    })
+    collectionHolder.appendChild(button);
+
     collectionHolder.dataset.index++;
 };
+
+jQuery(document).ready(function() {
+    var wrapper = $('.collection-elements');
+    deletingparent(wrapper, '.remove-btn')
+});
+
+function deletingparent(parent, buttonClass) {
+    var button = parent.first(buttonClass);
+    console.log(button)
+    button.on('click', function(event) {
+        removecontent(parent);
+    })
+}
+
+function removecontent(container) {
+    container.html("");
+}
