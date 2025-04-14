@@ -8,7 +8,7 @@ $success: #38ff10;
 $warning: #ffe868;
 $info: #64ffe5;
 $white: #fff;
-$light: #f9fcfd;
+$light: #d9dfe1;
 $dark: #2b2b2b;
 $dark-grey: #e0e1e1;
 
@@ -28,6 +28,10 @@ $theme-colors: (
 
 body {
     background-color: unset !important;
+}
+
+.container {
+    max-width: 1600px;
 }
 
 .no-bullet {
@@ -77,6 +81,10 @@ body header {
 .alert {
     max-width: 500px;
     display: none;
+}
+
+.form-control, .form-select {
+    border-radius: 0;
 }
 
 // ------------ image preview -------------

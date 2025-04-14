@@ -10,7 +10,6 @@
             width: 25%;
             background-color: {{ cv.sideColor }};
             color: {{ cv.textSideColor }};
-            padding: 20px;
         }
 
         main {
@@ -23,22 +22,44 @@
         h1, h2, h3, h4, h5, p {
             margin-bottom: 5px;
             margin-top: 0;
+            padding: 0 20px;
+        }
+
+        aside > img {
+            max-width: 100%;
+            margin: auto;
         }
     </style>
     <aside>
+        {% if cv.profileImg %}
+            <img src='{{ cv.profileImg }}' alt=''>
+        {% endif %}
         <h2>Coordonnées</h2>
         <h3><strong>{{ cv.user.email }}</strong></h3>
         {% if cv.user.coordinates %}
-            <p><strong>{% trans %}Adress{% endtrans %}</strong></p>
+            <p><strong>{% trans %}Phone{% endtrans %}</strong></p>
             <p>{{ cv.user.coordinates.phone }}</p>
+            <p><strong>{% trans %}Adress{% endtrans %}</strong></p>
             <p>{{ cv.user.coordinates.street }}</p>
             <p>{{ cv.user.coordinates.zipcode }} {{ cv.user.coordinates.city }}</p>
             <p>{{ cv.user.coordinates.clearCountry }}</p>
         {% endif %}
         
+        {% for bl in cv.blocks %}
+            {% if bl.placement == 'side' %}
+                <h2>{{ bl.title }}</h2>
+            {% endif %}
+        {% endfor %}
     </aside>
     <main>
         <h1>{{ cv.user.gender }} {{ cv.user.firstname }} {{ cv.user.lastname }}</h1>
         <h2>{{ cv.name }}</h2>
+        <p>{{ cv.description }}</p>
+
+        {% for bl in cv.blocks %}
+            {% if bl.placement == 'main' %}
+                <h2>{{ bl.title }}</h2>
+            {% endif %}
+        {% endfor %}
     </main>
 </body>

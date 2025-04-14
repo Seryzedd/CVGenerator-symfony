@@ -61,6 +61,10 @@ document
 function addFormToCollection(e) {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
+    collectionHolder.classList.add('border-top');
+    collectionHolder.classList.add('border-dark');
+    collectionHolder.classList.add('py-2');
+
     const item = document.createElement('li');
 
     item.classList.add('no-bullet');

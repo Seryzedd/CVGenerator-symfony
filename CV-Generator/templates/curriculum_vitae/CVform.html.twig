@@ -3,18 +3,22 @@
         {{ form_start(form) }}
             {{ form_row(form.name) }}
 
+            {{ form_row(form.description, {attr: {rows: '5'}}) }}
+
             <div class="row align-items-center">
                 <div class="col-4 offset-4 col-md-2 offset-md-0">
                     <div id="img_preview" class="p-2 text-center text-muted">
-                        <i class="fa-solid fa-camera fa-lg"></i>
+                        {% if form.vars.data.profileImg %}
+                            <img src="{{ form.vars.data.profileImg }}" alt="">
+                        {% else %}
+                            <i class="fa-solid fa-camera fa-lg"></i>
+                        {% endif %}
                     </div>
                 </div>
 
                 <div class="col-12 col-md-10">
                     {{ form_row(form.profileImg) }}
                 </div>
-
-                
             </div>
             
             {{ form_row(form.template) }}
@@ -25,7 +29,7 @@
             </button>
 
             <div class="collapse" id="collapseExample">
-                <div class="border-top pt-3">
+                <div class="border-top border-primary pt-3">
                     <div class="row">
                         <div class="col-md-6">
                             {{ form_row(form.sideColor) }}
@@ -46,15 +50,9 @@
             </button>
 
             <div class="collapse" id="collapsingBlocks">
-                <div class="border-top pt-3">
-                    <div class="row">
-
-                        <ul class="blocks" data-index="{{ form.blocks|length > 0 ? form.blocks|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.blocks.vars.prototype)|e('html_attr') }}"></ul>
-                        <button type="button" class="btn btn-secondary add_collection" data-collection-holder-class="blocks">
-                            <span class="fa fa-plus"></span>
-                            {% trans %}Add new Block{% endtrans %}
-                        </button>
-                    </div>
+                <div class="border bg-white mb-2 py-2 px-3">
+                    {% include "form/collection.html.twig" with {'form': form.blocks, 'buttonName': 'Add New block', 'classname': 'blocks'} %}
+                    
                 </div>
             </div>
 

@@ -6,6 +6,7 @@ use App\Entity\CurriculumVitae;
 use App\Entity\User;
 use App\Form\BlockType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,8 +31,10 @@ class CurriculumVitaeType extends AbstractType
             ])
             ->add('profileImg', FileType::class, [
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'label' => 'Profile picture'
             ])
+            ->add('description', TextareaType::class)
             ->add('sideColor', ColorType::class)
             ->add('mainColor', ColorType::class)
             ->add('textSideColor', ColorType::class)
@@ -39,7 +42,9 @@ class CurriculumVitaeType extends AbstractType
             ->add('blocks', CollectionType::class, [
                 'entry_type' => BlockType::class,
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => false
             ])
         ;
     }

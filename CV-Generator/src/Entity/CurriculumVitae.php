@@ -52,8 +52,11 @@ class CurriculumVitae
     /**
      * @var Collection<int, Block>
      */
-    #[ORM\OneToMany(targetEntity: Block::class, mappedBy: 'cv', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Block::class, mappedBy: 'cv', fetch:"EXTRA_LAZY", cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $blocks;
+
+    #[ORM\Column(type: "text", length:1000)]
+    private string $description = "";
 
     public function __construct()
     {
@@ -207,6 +210,18 @@ class CurriculumVitae
                 $block->setCv(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): string 
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self 
+    {
+        $this->description = $description;
 
         return $this;
     }
