@@ -20,6 +20,11 @@ class BlockType extends AbstractType
             ->add('placement', ChoiceType::class, [
                 'choices' => Block::PLACEMENT_LIST
             ])
+            ->add('withDates', null, [
+                'attr' => [
+                    'class' => 'dates-option'
+                ]
+            ])
             ->add('blockLines', CollectionType::class, [
                 'entry_type' => LineType::class,
                 'allow_add' => true,

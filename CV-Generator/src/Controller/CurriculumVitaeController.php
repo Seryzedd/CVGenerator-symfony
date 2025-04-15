@@ -71,12 +71,7 @@ final class CurriculumVitaeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            dump($data);
-            die;
             
-            if ($data) {
-                # code...
-            }
             $file = $form['profileImg']->getData();
             
             if ($file) {

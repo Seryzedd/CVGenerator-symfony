@@ -30,10 +30,14 @@ class Block
     #[ORM\Column(length: 150)]
     private ?string $placement = "";
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $withDates = false;
+
     /**
      * @var Collection<int, Line>
      */
     #[ORM\OneToMany(targetEntity: Line::class, mappedBy: 'block', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[OrderBy(["startAt" => "DESC"])]
     private Collection $blockLines;
 
     public function __construct()
@@ -108,6 +112,18 @@ class Block
                 $blockLine->setBlock(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWithDates(): bool
+    {
+        return $this->withDates;
+    }
+
+    public function setWithDates(bool $value): self
+    {
+        $this->withDates = $value;
 
         return $this;
     }

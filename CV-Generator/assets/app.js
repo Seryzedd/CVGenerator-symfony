@@ -82,7 +82,7 @@ function addFormToCollection(e) {
     button.classList.add('btn');
     button.classList.add('btn-danger');
     button.setAttribute('type', 'button');
-    button.innerText = "Remove new block";
+    button.innerHTML = "<i class='fa-solid fa-trash-can'></i>";
 
     button.addEventListener('click', function(event) {
         removecontent($(collectionHolder))
@@ -94,14 +94,14 @@ function addFormToCollection(e) {
 
 jQuery(document).ready(function() {
     var wrapper = $('.collection-elements');
-    deletingparent(wrapper, '.remove-btn')
+    deletingparent(wrapper, 'button.remove-btn')
 });
 
 function deletingparent(parent, buttonClass) {
-    var button = parent.first(buttonClass);
-    console.log(button)
+    var button = parent.find(buttonClass);
+    
     button.on('click', function(event) {
-        removecontent(parent);
+        removecontent($(this).closest('.collection-elements'));
     })
 }
 

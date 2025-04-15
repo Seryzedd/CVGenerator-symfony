@@ -14,3 +14,118 @@
         </main>
     </body>
 </html>
+<body>
+    <style>
+        body {
+            width: 21cm;
+            height: 29.7cm;
+            display: flex;
+        }
+
+        aside {
+            width: 25%;
+            background-color: {{ cv.sideColor }};
+            color: {{ cv.textSideColor }};
+        }
+
+        main {
+            width: 75%;
+            background-color: {{ cv.mainColor }};
+            color: {{ cv.textMainColor }};
+            padding: 20px;
+        }
+
+        h1, h2, h3, h4, h5, p {
+            margin-bottom: 5px;
+            margin-top: 0;
+            padding: 0 20px;
+        }
+
+        aside > img {
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .row {
+            display: flex;
+        }
+    </style>
+    
+    <main>
+        <h1>{{ cv.user.gender }} {{ cv.user.firstname }} {{ cv.user.lastname }}</h1>
+        <h2>{{ cv.name }}</h2>
+        <p>{{ cv.description }}</p>
+
+        {% for bl in cv.blocks %}
+            {% if bl.placement == 'main' %}
+                <h2>{{ bl.title }}</h2>
+                
+                {% for line in bl.blockLines %}
+                    <div class='row'>
+                        {% if bl.withDates %}
+                            <div>
+                                {% if line.startAt %}
+                                    <p><strong>{% trans with {'%startDate%': line.startAt|date("d/m/Y")} %}From %startDate%{% endtrans %}</strong></p>
+                                {% endif %}
+
+                                {% if line.endAt %}
+                                    <p><strong>{% trans with {'%endDate%': line.endAt|date("d/m/Y")} %}To %endDate%{% endtrans %}</strong></p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        <div>
+                            <h3>{{ line.title }}</h3>
+                            <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </main>
+
+    <aside>
+        {% if cv.profileImg %}
+            <img src='{{ cv.profileImg }}' alt=''>
+        {% endif %}
+        <h2>Coordonnées</h2>
+        <h3><strong>{{ cv.user.email }}</strong></h3>
+        {% if cv.user.coordinates %}
+            <p><strong>{% trans %}Phone{% endtrans %}</strong></p>
+            <p>{{ cv.user.coordinates.phone }}</p>
+            <p><strong>{% trans %}Adress{% endtrans %}</strong></p>
+            <p>{{ cv.user.coordinates.street }}</p>
+            <p>{{ cv.user.coordinates.zipcode }} {{ cv.user.coordinates.city }}</p>
+            <p>{{ cv.user.coordinates.clearCountry }}</p>
+        {% endif %}
+        
+        {% for bl in cv.blocks %}
+            {% if bl.placement == 'side' %}
+                <h2>{{ bl.title }}</h2>
+
+                {% for line in bl.blockLines %}
+                    <div class='row'>
+                        {% if bl.withDates %}
+                            <div>
+                                {% if line.startAt %}
+                                    <p><strong>{% trans with {'%startDate%': line.startAt|date("d/m/Y")} %}From %startDate%{% endtrans %}</strong></p>
+                                {% endif %}
+
+                                {% if line.endAt %}
+                                    <p><strong>{% trans with {'%endDate%': line.endAt|date("d/m/Y")} %}To %endDate%{% endtrans %}</strong></p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        <div>
+                            <h3>{{ line.title }}</h3>
+                            <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </aside>
+</body>

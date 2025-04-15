@@ -29,6 +29,10 @@
             max-width: 100%;
             margin: auto;
         }
+
+        .row {
+            display: flex;
+        }
     </style>
     <aside>
         {% if cv.profileImg %}
@@ -59,6 +63,28 @@
         {% for bl in cv.blocks %}
             {% if bl.placement == 'main' %}
                 <h2>{{ bl.title }}</h2>
+                
+                {% for line in bl.blockLines %}
+                    <div class='row'>
+                        {% if bl.withDates %}
+                            <div>
+                                {% if line.startAt %}
+                                    <p><strong>{% trans with {'%startDate%': line.startAt|date("d/m/Y")} %}From %startDate%{% endtrans %}</strong></p>
+                                {% endif %}
+
+                                {% if line.endAt %}
+                                    <p><strong>{% trans with {'%endDate%': line.endAt|date("d/m/Y")} %}To %endDate%{% endtrans %}</strong></p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        
+                        <div>
+                            <h3>{{ line.title }}</h3>
+                            <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
             {% endif %}
         {% endfor %}
     </main>

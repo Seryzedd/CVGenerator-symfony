@@ -34,7 +34,9 @@ class CurriculumVitaeType extends AbstractType
                 'required' => false,
                 'label' => 'Profile picture'
             ])
-            ->add('description', TextareaType::class)
+            ->add('description', TextareaType::class, [
+                'required' => false
+            ])
             ->add('sideColor', ColorType::class)
             ->add('mainColor', ColorType::class)
             ->add('textSideColor', ColorType::class)
@@ -44,6 +46,9 @@ class CurriculumVitaeType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'attr' => [
+                    'class' => 'd-none'
+                ],
                 'label' => false
             ])
         ;
