@@ -80,7 +80,9 @@
                         
                         <div>
                             <h3>{{ line.title }}</h3>
-                            <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
+                            {% if line.companyName %}
+                                <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
+                            {% endif %}
                         </div>
                     </div>
                     

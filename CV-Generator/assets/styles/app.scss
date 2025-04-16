@@ -2,7 +2,7 @@
 
 // customize some Bootstrap variables
 $primary: #70bcff;
-$secondary: #71ff90;
+$secondary: #65e19c;
 $danger: #ff4c4c;
 $success: #38ff10;
 $warning: #ffe868;
@@ -99,25 +99,28 @@ img {
 
 //   ---------- checkbox -----------
 
-.checkbox input[type="checkbox"] {
+.checkbox input[type="checkbox"], .form-check input[type="checkbox"] {
   visibility: hidden;
   display: none;
 }
 
 .checkbox *,
-.checkbox::after,
-.checkbox::before {
+.checkbox:after,
+.checkbox:before,
+.form-check,
+.form-check:after,
+.form-check:before {
   box-sizing: border-box;
 }
 
-.checkbox label {
+.checkbox label, .form-check label {
     display: flex;
     align-items: center;
     position: relative;
     margin-top: 6px;
 }
 
-.checkbox label::before {
+.checkbox label::before, .form-check label::before {
     width: 40px;
     border-radius: 20px;
     height: 25px;
@@ -129,7 +132,7 @@ img {
     transition: cubic-bezier(0.075, 0.82, 0.165, 1)
 }
 
-.checkbox label::after {
+.checkbox label::after, .form-check label:after {
     position:absolute;
     content: "";
     left: 2px;;
@@ -140,12 +143,12 @@ img {
     transition: 0.2s;
 }
 
-.checkbox:has(input[type=checkbox]:checked) label::before {
+.checkbox:has(input[type=checkbox]:checked) label::before, .form-check:has(input[type=checkbox]:checked) label::before {
     background-color: $success;
     content: "";
 }
 
-.checkbox:has(input[type=checkbox]:checked) label::after {
+.checkbox:has(input[type=checkbox]:checked) label::after, .form-check:has(input[type=checkbox]:checked) label::after {
     position:absolute;
     content: "";
     left: 17px;
@@ -156,10 +159,10 @@ img {
     transition: 0.2s;
 }
 
-.checkbox label:hover::before {
+.checkbox label:hover::before, .form-check label:hover::before {
     background-color: darken($dark-grey, 20%);
 }
 
-.checkbox:has(input[type=checkbox]:checked) label:hover:before {
+.checkbox:has(input[type=checkbox]:checked) label:hover:before, .form-check:has(input[type=checkbox]:checked) label:hover:before {
     background-color: darken($success, 20%);
 }
