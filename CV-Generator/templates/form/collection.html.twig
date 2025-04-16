@@ -1,6 +1,6 @@
 <div class="row">
     {% for entity in form %}
-        <div class="col-12 px-2 py-2 collection-elements {% if not loop.last %}border-bottom{% endif %}">
+        <div class="col-12 px-2 py-2 collection-elements">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <h3 class="col-12 text-primary d-block">{% trans %}Blocks{% endtrans %} {{ entity.title.vars.data }}</h3>
@@ -19,14 +19,14 @@
             </button>
             <div class="collapse" id="collapselines-{{ entity.vars.data.id }}">
                 <div class="card card-body">
-                    <div classe="col-12 pr-4">
+                    <div classe="col-12 ps-4 border-top">
                         <div class="row">
                             {% for subForm in entity.blockLines %}
                                 <div class="col-6">
                                     <h3 class="text-primary">{% trans %}Line{% endtrans %} {{ subForm.title.vars.data }}</h3>
                                 </div>
                                 <div class="col-6 text-end">
-                                    <button value="{{ subForm.vars.data.id }}" name="remove_line" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></button>
+                                    <button value="{{ subForm.vars.data.id }}" name="remove_line" class="btn btn-danger remove-btn btn-sm"><i class="fa-solid fa-trash-can"></i></button>
                                 </div>
                                 <div class="col-6">
                                     {{ form_row(subForm.startAt) }}
@@ -44,7 +44,7 @@
                                     <i class="fa-solid fa-angle-down"></i>
                                 </button>
 
-                                <div class="collapse pr-2" id="line-details-{{ subForm.vars.data.id }}">
+                                <div class="collapse ps-4" id="line-details-{{ subForm.vars.data.id }}">
                                     <div class="row mb-2 align-items-baseline">
                                         {% set formRender = form_widget(subForm.lineDetails.vars.prototype) %}
 
@@ -77,10 +77,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="d-flex justify-content-start mb-2">
-                                    <button value="{{ subForm.vars.data.id }}" name="remove_line" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></button>
-                                </div>
                             {% endfor %}
                             
                             {% if form.vars.allow_add %}
@@ -96,10 +92,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="d-flex justify-content-start py-2">
-                <button type="button" value="{{ entity.vars.data.id }}" class="btn btn-danger remove-btn btn-sm" ><i class="fa-solid fa-trash-can"></i></button>
             </div>
         </div>
     {% endfor %}
