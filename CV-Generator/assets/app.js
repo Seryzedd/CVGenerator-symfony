@@ -58,6 +58,11 @@ document
       btn.addEventListener("click", addFormToCollection)
   });
 
+function submitForm(button) {
+    button.closest('form').submit();
+}
+
+
 function addFormToCollection(e) {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
@@ -85,7 +90,9 @@ function addFormToCollection(e) {
     button.innerHTML = "<i class='fa-solid fa-trash-can'></i>";
 
     button.addEventListener('click', function(event) {
-        removecontent($(collectionHolder))
+        removecontent($(collectionHolder));
+
+        submitForm(button);
     })
     collectionHolder.appendChild(button);
 
@@ -94,7 +101,8 @@ function addFormToCollection(e) {
 
 jQuery(document).ready(function() {
     var wrapper = $('.collection-elements');
-    deletingparent(wrapper, 'button.remove-btn')
+    deletingparent(wrapper, 'button.remove-btn');
+    
 });
 
 function deletingparent(parent, buttonClass) {
@@ -102,6 +110,8 @@ function deletingparent(parent, buttonClass) {
     
     button.on('click', function(event) {
         removecontent($(this).closest('.collection-elements'));
+
+        submitForm(button);
     })
 }
 
