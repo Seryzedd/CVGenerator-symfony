@@ -83,9 +83,14 @@
                             {% if line.companyName %}
                                 <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
                             {% endif %}
+
+                            <div class='col-12'>
+                                {% for detail in line.lineDetails %}
+                                    <p>{% if detail.beforeCharacter %}{{ detail.beforeCharacter }} {% endif %}{{ detail.title }}</p>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                    
                 {% endfor %}
             {% endif %}
         {% endfor %}

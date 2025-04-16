@@ -86,6 +86,7 @@ function addFormToCollection(e) {
     button.classList.add('remove-new');
     button.classList.add('btn');
     button.classList.add('btn-danger');
+    button.classList.add('btn-sm');
     button.setAttribute('type', 'button');
     button.innerHTML = "<i class='fa-solid fa-trash-can'></i>";
 

@@ -19,7 +19,7 @@
             </button>
             <div class="collapse" id="collapselines-{{ entity.vars.data.id }}">
                 <div class="card card-body">
-                    <div classe="col-12 px-4">
+                    <div classe="col-12 pr-4">
                         <div class="row">
                             {% for subForm in entity.blockLines %}
                                 <div class="col-6">
@@ -36,7 +36,46 @@
                                 </div>
         
                                 <div class="col-12 px-2 py-2">
-                                    {{ form_widget(subForm) }}
+                                    {{ form_widget(subForm.block) }}
+                                </div>
+
+                                <button class="btn btn-light d-flex w-100 justify-content-between align-items-center text-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#line-details-{{ subForm.vars.data.id }}" aria-expanded="false" aria-controls="line-details-{{ subForm.vars.data.id }}">
+                                    {% trans %}Details{% endtrans %}
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </button>
+
+                                <div class="collapse pr-2" id="line-details-{{ subForm.vars.data.id }}">
+                                    <div class="row mb-2 align-items-baseline">
+                                        {% set formRender = form_widget(subForm.lineDetails.vars.prototype) %}
+
+                                        {% for detail in subForm.lineDetails %}
+                                            <div class="col-4">
+                                                {{ form_row(detail.beforeCharacter) }}
+                                            </div>
+
+                                            <div class="col-8">
+                                                {{ form_row(detail.title) }}
+                                            </div>
+
+                                            <div class="col-12">
+                                                {{ form_row(detail.line) }}
+                                            </div>
+                                        {% endfor %}
+                                        
+                                        <ul
+                                            class="details-{{ subForm.vars.data.id }} mb-0"
+                                            data-index="{{ subForm.lineDetails|length > 0 ? subForm.lineDetails|last.vars.name + 1 : 0 }}"
+                                            data-prototype="{{ formRender|e('html_attr') }}"
+                                            >
+                                        </ul>
+
+                                        <div class="col-12 text-end">
+                                            <button type="button" class="btn btn-secondary add_collection btn-sm" data-collection-holder-class="details-{{ subForm.vars.data.id }}">
+                                                <span class="fa fa-plus"></span>
+                                                {% trans with {'%buttonName%': 'Add new Line detail'} %}%buttonName%{% endtrans %}
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="d-flex justify-content-start mb-2">

@@ -43,6 +43,12 @@ class CurriculumVitae
     #[ORM\Column(length: 10, nullable: true)]
     private string $textMainColor = "";
 
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $HeadBGColor;
+
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $HeadTextColor ;
+
     #[ORM\Column(type: "datetime", nullable: true)]
     private \Datetime $createdAt;
 
@@ -224,5 +230,29 @@ class CurriculumVitae
         $this->description = $description;
 
         return $this;
+    }
+
+    public function setHeadBGColor(string $color): self
+    {
+        $this->HeadBGColor = $color;
+
+        return $this;
+    }
+
+    public function getHeadBGColor(): string 
+    {
+        return $this->HeadBGColor;
+    }
+
+    public function setHeadTextColor(string $color): self
+    {
+        $this->HeadTextColor = $color;
+
+        return $this;
+    }
+
+    public function getHeadTextColor(): string 
+    {
+        return $this->HeadTextColor;
     }
 }
