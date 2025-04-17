@@ -15,4 +15,5 @@ return [
     Symfonycasts\SassBundle\SymfonycastsSassBundle::class => ['all' => true],
     SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle::class => ['all' => true],
     SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
+    Pontedilana\WeasyprintBundle\WeasyprintBundle::class => ['all' => true],
 ];

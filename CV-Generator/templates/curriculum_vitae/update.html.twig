@@ -6,7 +6,10 @@
     <div class="container bg-light p-4 mt-4">
         <div class="d-flex justify-content-between align-items-center">
             <h1 class="text-primary">{% trans  with {'%name%': form.name.vars.data} %}Update new Curriculum vitae %name%{% endtrans %}</h1>
-            <a href="{{ path('app_curriculum_vitae_remove', {'id': form.vars.data.id}) }}" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></a>
+            <div>
+                <a href="{{ path('app_pdf', {cv: form.vars.data.id}) }}" class="btn btn-light"><i class="fa-regular fa-floppy-disk"></i></a>
+                <a href="{{ path('app_curriculum_vitae_remove', {'id': form.vars.data.id}) }}" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></a>
+            </div>
         </div>
         
         {% include 'curriculum_vitae/CVform.html.twig' with {'form': form} %}

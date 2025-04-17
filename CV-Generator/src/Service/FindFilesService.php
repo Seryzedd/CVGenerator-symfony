@@ -16,11 +16,11 @@ class FindFilesService
         $this->filesystem = $filesystem = new Filesystem();
     }
 
-    function findInFolder(string $folder): array
+    public function findInFolder(string $folder, string $base = "/var/www/html/src/"): array
     {
         $response = [];
 
-        $this->finder->files()->in( "/var/www/html/src/" . $folder)->name('*.html.twig');
+        $this->finder->files()->in($base . $folder)->name('*.html.twig');
 
         if ($this->finder->hasResults()) {
             foreach ($this->finder as $file) {
@@ -29,5 +29,20 @@ class FindFilesService
         }
 
         return $response;
+    }
+
+    public function findDirectory(string $dir, $base = "/var/www/html/")
+    {
+        try {
+            return $this->findInFolder($dir, $base);
+        } catch(\Exception $e) {
+            return false;
+        }
+        
+    }
+
+    public function getBaseDirectory()
+    {
+        return "/var/www/html/";
     }
 }

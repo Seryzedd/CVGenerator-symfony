@@ -34,6 +34,7 @@
                     </div>
 
                     <div class="col-md-4 text-end">
+                        <a href="{{ path('app_pdf', {'cv': cv.id}) }}" class="btn btn-light"><i class="fa-regular fa-floppy-disk"></i></a>
                         <a href="{{ path('app_curriculum_vitae_update', {'id': cv.id}) }}" class="btn btn-light"><i class="fa-solid fa-pen"></i></a>
                         <a href="{{ path('app_curriculum_vitae_remove', {'id': cv.id}) }}" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></a>
                     </div>
