@@ -3,5 +3,20 @@
 {% block title %}{% trans %}Homepage{% endtrans %}{% endblock %}
 
 {% block body %}
+<div class="row mx-auto  g-0 h-100 align-items-stretch container">
+    <h2 class="col-md-6">
+        <a href="{{ path('app_login') }}" class="btn btn-primary d-flex flex-column justify-content-center align-items-center w-100 h-100">
+            <i class="fa-solid fa-arrow-right-to-bracket fa-2xl mb-3"></i>
+            <br>
+            {% trans %}I already have an account{% endtrans %}
+        </a>
+    </h2>
 
+    <h2 class="col-md-6">
+        <a href="{{ path('app_register') }}" class="btn btn-outline-primary w-100 flex-column justify-content-center d-flex align-items-center  h-100">
+            <i class="fa-solid fa-plus fa-2xl mb-3"></i>
+            {% trans %}I want to register{% endtrans %}
+        </a>
+    </h2>
+</div>
 {% endblock %}

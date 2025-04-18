@@ -68,10 +68,13 @@ body {
     "header header"
     "main main";
     grid-template-columns: fit-content 3fr;
+    grid-template-rows: fit-content minmax(100%, auto);
 }
 
 main {
     grid-area: main;
+    height: 100%;
+    padding: 0 1rem;
 }
 
 body header {

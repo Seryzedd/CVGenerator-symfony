@@ -16,7 +16,11 @@ class LoginController extends AbstractController
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        dump($this->entityManager->getRepository(User::class)->findAll());
+        if ($this->getUser()) {
+            $this->addFlash('info', 'You are already logged in. To connect with another account, logout first.');
+            
+            return $this->redirectToRoute('app_homepage');
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 

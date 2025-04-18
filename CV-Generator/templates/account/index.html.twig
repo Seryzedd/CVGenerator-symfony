@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-md-8">
-                    {% block account_content %}{% endblock %}
+                    {{ block('account_content') }}
                 </div>
             {% else %}
                 <div class="col-12">
@@ -41,3 +41,33 @@
         </div>
     </div>
 {% endblock %}
+
+{% block account_content %}
+    <div class="px-2">
+        <h2 class="text-secondary">{% trans %}My curriculum vitae list{% endtrans %}</h2>
+
+        {% for cv in app.user.curriculumVitaes %}
+            <div class="row border align-items-center mb-2 py-2">
+                <div class="col-6 offset-3 col-md-1 offset-md-0">
+                    <img src="{{ cv.profileImg }}" class="img-fluid" alt="">
+                </div>
+
+                <div class="col-md-4">
+                    <h3 class="text-primary text-center text-md-start mb-0">{{ cv.name }}</h3>
+                </div>
+
+                <div class="col-md-4">
+                    <p class="text-dark text-center text-md-start mb-0">{{ cv.template|replace({'.html.twig': ''}) }}</p>
+                </div>
+
+                <div class="col-md-3">
+                    <p class="text-center text-md-end mb-0">
+                        <a href="{{ path('app_pdf', {'cv': cv.id}) }}" class="btn btn-light"><i class="fa-regular fa-floppy-disk"></i></a>
+                        <a href="{{ path('app_curriculum_vitae_update', {'id': cv.id}) }}" class="btn btn-light"><i class="fa-solid fa-pen"></i></a>
+                        <a href="{{ path('app_curriculum_vitae_remove', {'id': cv.id}) }}" class="btn btn-outline-danger"><i class="fa-regular fa-trash-can"></i></a>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock account_content %}

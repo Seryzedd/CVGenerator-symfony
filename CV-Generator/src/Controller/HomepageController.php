@@ -16,9 +16,11 @@ final class HomepageController extends AbstractController
             // if it exists, disable the profiler for this particular controller action
             $profiler->disable();
         }
+
+        if($this->getUser()) {
+            return $this->redirectToRoute('app_curriculum_vitae');
+        }
         
-        return $this->render('homepage/index.html.twig', [
-            'controller_name' => 'HomepageController',
-        ]);
+        return $this->render('homepage/index.html.twig', []);
     }
 }
