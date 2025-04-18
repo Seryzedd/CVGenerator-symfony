@@ -41,16 +41,24 @@ class CurriculumVitaeType extends AbstractType
             ->add('mainColor', ColorType::class)
             ->add('textSideColor', ColorType::class)
             ->add('textMainColor', ColorType::class)
-            ->add('HeadBGColor', ColorType::class, [
+            ->add('headBGColor', ColorType::class, [
                     'required' => false,
                     'empty_data' => '',
                     'label' => 'Header background color'
                 ])
-            ->add('HeadTextColor', ColorType::class,[
+            ->add('headTextColor', ColorType::class,[
                     'required' => false,
                     'empty_data' => '',
                     'label' => 'Header text color'
                 ])
+            ->add('titleSideColor', ColorType::class,[
+                'required' => false,
+                'empty_data' => '',
+            ])
+            ->add('titleMainColor', ColorType::class,[
+                'required' => false,
+                'empty_data' => '',
+            ])
             ->add('blocks', CollectionType::class, [
                 'entry_type' => BlockType::class,
                 'allow_add' => true,
