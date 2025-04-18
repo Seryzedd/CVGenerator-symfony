@@ -1,0 +1,185 @@
+<body>
+    <style>
+        body {
+            width: 21cm;
+            height: 29.7cm;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        @page {
+            size: 8.5in 11in !important;
+            bleed: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        aside {
+            width: 25%;
+            background-color: {{ cv.sideColor }};
+        }
+
+        main {
+            width: 75%;
+            {% if cv.mainColor %}
+                background-color: {{ cv.mainColor }};
+            {% endif %}
+            {% if cv.textMainColor %}
+                color: {{ cv.textMainColor }};
+            {% endif %}
+            padding: 0;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .head {
+            {% if cv.headBGColor is not null %}
+                background-color: {{ cv.headBGColor }};
+            {% endif %}
+            {% if cv.headTextColor is not null %}
+                color: {{cv.headTextColor}};
+            {% endif %}
+            z-index: 10;
+            display: flex;
+        }
+
+        .head div:last-child {
+            width: 75%;
+        }
+
+        .head div:first-of-type {
+            width: 25%;
+        }
+
+        h1, h2, h3, h4, h5, p {
+            margin-bottom: 0;
+            margin-top: 0;
+            padding: 0 20px;
+        }
+
+        aside p {
+            color: {{ cv.textSideColor }};
+        }
+
+        aside > img {
+            max-width: 100%;
+            margin: auto;
+        }
+
+        img {
+            object-fit: cover;
+            width: 100%;
+            height:100%;
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .padding-2 {
+            padding: 2rem;
+        }
+
+        .padding-x-2 {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .padding-y-2 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .padding-1 {
+            padding: 1rem;
+        }
+
+        .padding-x-1 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .padding-y-1 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+    </style>
+    <div class='flex'>
+        <aside>&nbsp</aside>
+        <main>&nbsp</main>
+    </div>
+    <div class='head'>
+        <div>
+            {% if cv.profileImg %}
+                <img src='{{ cv.profileImg }}' alt=''>
+            {% endif %}
+        </div>
+        
+        <div>
+            <h1>{{ cv.user.gender }} {{ cv.user.firstname }} {{ cv.user.lastname }}</h1>
+            <h2>{{ cv.name }}</h2>
+            <p>{{ cv.description }}</p>
+        </div>
+    </div>
+    <div class='flex' style='height:100%;'>
+        <aside>
+        
+            <h2 style='color: {{ cv.titleSideColor ?: 'unset' }};'>Coordonnées</h2>
+            <h3><strong>{{ cv.user.email }}</strong></h3>
+            {% if cv.user.coordinates %}
+                <p><strong>{% trans %}Phone{% endtrans %}</strong></p>
+                <p>{{ cv.user.coordinates.phone }}</p>
+                <p><strong>{% trans %}Adress{% endtrans %}</strong></p>
+                <p>{{ cv.user.coordinates.street }}</p>
+                <p>{{ cv.user.coordinates.zipcode }} {{ cv.user.coordinates.city }}</p>
+                <p>{{ cv.user.coordinates.clearCountry }}</p>
+            {% endif %}
+            
+            {% for bl in cv.blocks %}
+                {% if bl.placement == 'side' %}
+                    <h2 style='color: {{ cv.titleSideColor ?: 'unset' }};'>{{ bl.title }}</h2>
+                {% endif %}
+            {% endfor %}
+        </aside>
+        <main>
+            <div class='padding-1'>
+                {% for bl in cv.blocks %}
+                    {% if bl.placement == 'main' %}
+                        <h2 style='color: {{ cv.titleMainColor ?: 'unset' }};'>{{ bl.title }}</h2>
+                        
+                        {% for line in bl.blockLines %}
+                            <div class='row'>
+                                {% if bl.withDates %}
+                                    <div>
+                                        {% if line.startAt %}
+                                            <p><strong>{% trans with {'%startDate%': line.startAt|date("d/m/Y")} %}From %startDate%{% endtrans %}</strong></p>
+                                        {% endif %}
+    
+                                        {% if line.endAt %}
+                                            <p><strong>{% trans with {'%endDate%': line.endAt|date("d/m/Y")} %}To %endDate%{% endtrans %}</strong></p>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                
+                                <div>
+                                    <h3>{{ line.title }}</h3>
+                                    {% if line.companyName %}
+                                        <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
+                                    {% endif %}
+    
+                                    <div class='col-12'>
+                                        {% for detail in line.lineDetails %}
+                                            <p>{% if detail.beforeCharacter %}{{ detail.beforeCharacter }} {% endif %}{{ detail.title }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+</body>
