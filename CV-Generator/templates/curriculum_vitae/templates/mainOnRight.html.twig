@@ -1,42 +1,95 @@
-
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}{% endblock %}</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.svg') }}">
-        
-    </head>
-    <body>
-        <aside>
-        </aside>
-        <main>
-            test
-        </main>
-    </body>
-</html>
 <body>
     <style>
         body {
             width: 21cm;
             height: 29.7cm;
             display: flex;
+            margin: 0 !important;
+            padding: 0 !important;
+            background-color: #fff;
+        }
+
+        @page {
+            size: 8.5in 11in !important;
+            bleed: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
         }
 
         aside {
-            width: 25%;
-            background-color: {{ cv.sideColor }};
-            color: {{ cv.textSideColor }};
+            width: 30%;
+            {% if cv.asideBlock.backgroundColor %}
+                background-color: {{ cv.asideBlock.backgroundColor }};
+            {% endif %}
+        }
+
+        aside > div {
+            {% if cv.asideBlock.padding %}
+                padding: {{ cv.asideBlock.padding.number ?: 0 }}{{ cv.asideBlock.padding.type ?: ''}} 0;
+            {% endif %}
         }
 
         main {
-            width: 75%;
-            background-color: {{ cv.mainColor }};
-            color: {{ cv.textMainColor }};
-            padding: 20px;
+            width: 70%;
+            padding: 0;
+            {% if cv.mainBlock.backgroundColor %}
+                background-color: {{ cv.mainBlock.backgroundColor }};
+            {% endif %}
+        }
+
+        main h1 {
+            {% if cv.mainBlock.mainTitle %}
+                color: {{ cv.mainBlock.mainTitle.color ?: '#000'}};
+                margin: {{ cv.mainBlock.mainTitle.merge.number ?: '0'}}{{cv.mainBlock.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        main h2 {
+            {% if cv.mainBlock.subTitle %}
+                color: {{ cv.mainBlock.subTitle.color ?: '#000'}};
+                margin: {{ cv.mainBlock.subTitle.merge.number ?: '0'}}{{ cv.mainBlock.subTitle.merge.type ?: '' }};
+            {% endif %}
+        }
+
+        main p {
+            {% if cv.mainBlock.paragraph %}
+                color: {{ cv.mainBlock.paragraph.color ?: '#000'}};
+                margin: {{ cv.mainBlock.paragraph.merge.number ?: '0'}}{{ cv.mainBlock.paragraph.merge.type ?: '' }};
+            {% endif %}
+        }
+
+        .head {
+            {% if cv.header.backgroundColor %}
+                background-color: {{ cv.header.backgroundColor }};
+            {% endif %}
+            {% if cv.header.padding %}
+                padding: {{ cv.header.padding.number ?: 0 }}{{ cv.header.padding.type ?: ''}} 0;
+            {% endif %}
+        }
+
+        .head > h1 {
+            {% if cv.header.mainTitle %}
+                color: {{ cv.header.mainTitle.color ?: '#000'}};
+                margin: {{ cv.header.mainTitle.merge.number ?: '0'}}{{cv.header.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        .head h2 {
+            {% if cv.header.subTitle %}
+                color: {{ cv.mainBlock.subTitle.color ?: '#000'}};
+                margin: {{ cv.mainBlock.subTitle.merge.number ?: '0'}}{{ cv.mainBlock.subTitle.merge.type ?: '' }};
+            {% endif %}
+        }
+
+        .head p {
+            {% if cv.header.paragraph %}
+                color: {{ cv.header.paragraph.color ?: '#000'}};
+                margin: {{ cv.header.paragraph.merge.number ?: '0'}}{{ cv.header.paragraph.merge.type ?: '' }};
+            {% endif %}
         }
 
         h1, h2, h3, h4, h5, p {
-            margin-bottom: 5px;
+            margin-bottom: 0;
             margin-top: 0;
             padding: 0 20px;
         }
@@ -46,87 +99,118 @@
             margin: auto;
         }
 
+        aside h1 {
+            {% if cv.asideBlock %}
+                color: {{ cv.asideBlock.mainTitle.color ?: '#000'}};
+                margin: {{ cv.asideBlock.mainTitle.merge.number ?: '0'}}{{cv.asideBlock.mainTitle.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        aside h2 {
+            {% if cv.asideBlock %}
+                color: {{ cv.asideBlock.subTitle.color ?: '#000'}};
+                margin: {{ cv.asideBlock.subTitle.merge.number ?: '0'}}{{cv.asideBlock.subTitle.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        aside p {
+            {% if cv.mainBlock %}
+                color: {{ cv.mainBlock.paragraph.color ?: '#000'}};
+                margin: {{ cv.mainBlock.paragraph.merge.number ?: '0'}}{{cv.asideBlock.paragraph.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        main h1 {
+            {% if cv.mainBlock %}
+                color: {{ cv.mainBlock.mainTitle.color ?: '#000'}};
+                margin: {{ cv.mainBlock.mainTitle.merge.number ?: '0'}}{{cv.mainBlock.mainTitle.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        main h2 {
+            {% if cv.asideBlock %}
+                color: {{ cv.mainBlock.subTitle.color ?: '#000'}};
+                margin: {{ cv.mainBlock.subTitle.merge.number ?: '0'}}{{cv.mainBlock.subTitle.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        main p {
+            {% if cv.asideBlock %}
+                color: {{ cv.mainBlock.paragraph.color ?: '#000'}};
+                margin: {{ cv.mainBlock.paragraph.merge.number ?: '0'}}{{cv.mainBlock.paragraph.merge.type ?: ''}};
+            {% endif %}
+        }
+
         .row {
             display: flex;
         }
     </style>
     
     <main>
-        <h1>{{ cv.user.gender }} {{ cv.user.firstname }} {{ cv.user.lastname }}</h1>
-        <h2>{{ cv.name }}</h2>
-        <p>{{ cv.description }}</p>
-
-        {% for bl in cv.blocks %}
-            {% if bl.placement == 'main' %}
-                <h2>{{ bl.title }}</h2>
-                
-                {% for line in bl.blockLines %}
-                    <div class='row'>
-                        {% if bl.withDates %}
-                            <div>
-                                {% if line.startAt %}
-                                    <p><strong>{% trans with {'%startDate%': line.startAt|date("d/m/Y")} %}From %startDate%{% endtrans %}</strong></p>
-                                {% endif %}
-
-                                {% if line.endAt %}
-                                    <p><strong>{% trans with {'%endDate%': line.endAt|date("d/m/Y")} %}To %endDate%{% endtrans %}</strong></p>
-                                {% endif %}
-                            </div>
-                        {% endif %}
-                        
-                        <div>
-                            <h3>{{ line.title }}</h3>
-                            <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
-                        </div>
-                    </div>
+        <div class='head padding-1'>
+            <h1>{{ cv.user.gender }} {{ cv.user.firstname }} {{ cv.user.lastname }}</h1>
+            <h2>{{ cv.name }}</h2>
+            <p>{{ cv.description }}</p>
+        </div>
+        
+        <div class='padding-1'>
+            {% for bl in cv.blocks %}
+                {% if bl.placement == 'main' %}
+                    <h2 style=''>{{ bl.title }}</h2>
                     
-                {% endfor %}
-            {% endif %}
-        {% endfor %}
+                    {% for line in bl.blockLines %}
+                        <div class='row'>
+                            {% if bl.withDates %}
+                                <div>
+                                    {% if line.startAt %}
+                                        <p><strong>{% trans with {'%startDate%': line.startAt|date("d/m/Y")} %}From %startDate%{% endtrans %}</strong></p>
+                                    {% endif %}
+
+                                    {% if line.endAt %}
+                                        <p><strong>{% trans with {'%endDate%': line.endAt|date("d/m/Y")} %}To %endDate%{% endtrans %}</strong></p>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            
+                            <div>
+                                <h3>{{ line.title }}</h3>
+                                {% if line.companyName %}
+                                    <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
+                                {% endif %}
+
+                                <div class='col-12'>
+                                    {% for detail in line.lineDetails %}
+                                        <p>{% if detail.beforeCharacter %}{{ detail.beforeCharacter }} {% endif %}{{ detail.title }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
     </main>
 
     <aside>
         {% if cv.profileImg %}
             <img src='{{ cv.profileImg }}' alt=''>
         {% endif %}
-        <h2>Coordonnées</h2>
-        <h3><strong>{{ cv.user.email }}</strong></h3>
-        {% if cv.user.coordinates %}
-            <p><strong>{% trans %}Phone{% endtrans %}</strong></p>
-            <p>{{ cv.user.coordinates.phone }}</p>
-            <p><strong>{% trans %}Adress{% endtrans %}</strong></p>
-            <p>{{ cv.user.coordinates.street }}</p>
-            <p>{{ cv.user.coordinates.zipcode }} {{ cv.user.coordinates.city }}</p>
-            <p>{{ cv.user.coordinates.clearCountry }}</p>
-        {% endif %}
+        <div>
+            <h2 style=''>Coordonnées</h2>
+            <h3><strong>{{ cv.user.email }}</strong></h3>
+            {% if cv.user.coordinates %}
+                <p><strong>{% trans %}Phone{% endtrans %}</strong></p>
+                <p>{{ cv.user.coordinates.phone }}</p>
+                <p><strong>{% trans %}Adress{% endtrans %}</strong></p>
+                <p>{{ cv.user.coordinates.street }}</p>
+                <p>{{ cv.user.coordinates.zipcode }} {{ cv.user.coordinates.city }}</p>
+                <p>{{ cv.user.coordinates.clearCountry }}</p>
+            {% endif %}
+        </div>
         
         {% for bl in cv.blocks %}
             {% if bl.placement == 'side' %}
-                <h2>{{ bl.title }}</h2>
-
-                {% for line in bl.blockLines %}
-                    <div class='row'>
-                        {% if bl.withDates %}
-                            <div>
-                                {% if line.startAt %}
-                                    <p><strong>{% trans with {'%startDate%': line.startAt|date("d/m/Y")} %}From %startDate%{% endtrans %}</strong></p>
-                                {% endif %}
-
-                                {% if line.endAt %}
-                                    <p><strong>{% trans with {'%endDate%': line.endAt|date("d/m/Y")} %}To %endDate%{% endtrans %}</strong></p>
-                                {% endif %}
-                            </div>
-                        {% endif %}
-                        
-                        <div>
-                            <h3>{{ line.title }}</h3>
-                            {% if line.companyName %}
-                                <p>{% trans with {'%company%': line.companyName} %}For %company%{% endtrans %}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    
-                {% endfor %}
+                <h2 style=''>{{ bl.title }}</h2>
             {% endif %}
         {% endfor %}
     </aside>

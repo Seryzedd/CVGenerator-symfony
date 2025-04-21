@@ -31,30 +31,6 @@ class CurriculumVitae
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $profileImg = null;
 
-    #[ORM\Column(length: 10, nullable: true)]
-    private string $sideColor = "";
-
-    #[ORM\Column(length: 10, nullable: true)]
-    private string $mainColor = "";
-
-    #[ORM\Column(length: 10, nullable: true)]
-    private string $textSideColor = "";
-
-    #[ORM\Column(length: 10, nullable: true)]
-    private string $textMainColor = "";
-
-    #[ORM\Column(length: 10, nullable: true)]
-    private ?string $headBGColor;
-
-    #[ORM\Column(length: 10, nullable: true)]
-    private ?string $headTextColor ;
-
-    #[ORM\Column(length: 10, nullable: true)]
-    private ?string $titleSideColor ;
-
-    #[ORM\Column(length: 10, nullable: true)]
-    private ?string $titleMainColor ;
-
     #[ORM\Column(type: "datetime", nullable: true)]
     private \Datetime $createdAt;
 
@@ -70,11 +46,26 @@ class CurriculumVitae
     #[ORM\Column(type: "text", length:1000)]
     private string $description = "";
 
+    #[ORM\OneToOne(inversedBy: 'curriculumVitae',targetEntity: Header::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private Header $header;
+
+    #[ORM\OneToOne(inversedBy: 'curriculumVitae',targetEntity: AsideBlock::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?AsideBlock $asideBlock = null;
+
+    #[ORM\OneToOne(inversedBy: 'curriculumVitae', targetEntity: MainBlock::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MainBlock $mainBlock = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->blocks = new ArrayCollection();
+        $this->asideBlock = new AsideBlock();
+        $this->mainBlock = new MainBlock();
+        $this->header = new Header();
     }
 
     public function getId(): ?int
@@ -127,54 +118,6 @@ class CurriculumVitae
     {
         $this->profileImg = $profileImg;
 
-        return $this;
-    }
-
-    public function getSideColor(): string 
-    {
-        return $this->sideColor;
-    }
-
-    public function setSideColor(string $color): self
-    {
-        $this->sideColor = $color;
-
-        return $this;
-    }
-
-    public function getMainColor(): string 
-    {
-        return $this->mainColor;
-    }
-
-    public function setMainColor(string $color): self
-    {
-        $this->mainColor = $color;
-        
-        return $this;
-    }
-
-    public function getTextSideColor(): string 
-    {
-        return $this->textSideColor;
-    }
-
-    public function setTextSideColor(string $color): self
-    {
-        $this->textSideColor = $color;
-        
-        return $this;
-    }
-
-    public function getTextMainColor(): string 
-    {
-        return $this->textMainColor;
-    }
-
-    public function setTextMainColor(string $color): self
-    {
-        $this->textMainColor = $color;
-        
         return $this;
     }
 
@@ -238,50 +181,44 @@ class CurriculumVitae
         return $this;
     }
 
-    public function setHeadBGColor(string $color): self
+    public function getHeader(): ?Header
     {
-        $this->headBGColor = $color;
+        return $this->header;
+    }
+
+    public function setHeader(Header $header): static
+    {
+        $header->setCurriculumVitae($this);
+
+        $this->header = $header;
 
         return $this;
     }
 
-    public function getHeadBGColor(): string 
+    public function getAsideBlock(): ?AsideBlock
     {
-        return $this->headBGColor;
+        return $this->asideBlock;
     }
 
-    public function setHeadTextColor(string $color): self
+    public function setAsideBlock(AsideBlock $asideBlock): static
     {
-        $this->headTextColor = $color;
+        $asideBlock->setCurriculumVitae($this);
+
+        $this->asideBlock = $asideBlock;
 
         return $this;
     }
 
-    public function getHeadTextColor(): string 
+    public function getMainBlock(): ?MainBlock
     {
-        return $this->headTextColor;
+        return $this->mainBlock;
     }
 
-    public function setTitleSideColor(string $color): self 
+    public function setMainBlock(MainBlock $mainBlock): static
     {
-        $this->titleSideColor = $color;
+        $mainBlock->setCurriculumVitae($this);
 
-        return $this;
-    }
-
-    public function getTitleSideColor(): string 
-    {
-        return $this->titleSideColor;
-    }
-
-    public function getTitleMainColor(): string 
-    {
-        return $this->titleMainColor;
-    }
-
-    public function setTitleMainColor(string $color): self 
-    {
-        $this->titleMainColor = $color;
+        $this->mainBlock = $mainBlock;
 
         return $this;
     }

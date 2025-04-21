@@ -1,4 +1,7 @@
-// app.js
+
+// import { registerReactControllerComponents } from '@symfony/ux-react';
+
+// registerReactControllerComponents(require.context('./react/controllers', true, /\.(j|t)sx?$/));
 
 $('.alert .btn-close').on('click', function() {
     let alertBlock = jQuery(this).closest('.alert')
@@ -10,6 +13,21 @@ $('.alert .btn-close').on('click', function() {
 })
 
 $(document).ready(function() {
+    // loading
+    const loader = document.getElementById('loader');
+    loader.addEventListener('beforeunload', function() {
+        $(this).fadeIn(0);
+    })
+
+    this.addEventListener('beforeunload', function() {
+        $('[type="submit"], a:not([href="#"]').each(function() {
+            $(this).setAttribute('disabled', true).addClass('disabled').prepend('<i class="fa-solid fa-spinner fa-spin-pulse"></i>');
+        })
+    })
+    
+    $(loader).fadeOut('slow');
+
+    // alerts
     $('.alert').fadeIn('slow', 'swing');
 
     setTimeout(function() {

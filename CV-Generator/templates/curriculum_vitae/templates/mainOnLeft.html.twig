@@ -6,6 +6,7 @@
             display: flex;
             margin: 0 !important;
             padding: 0 !important;
+            background-color: #fff;
         }
 
         @page {
@@ -17,26 +18,52 @@
 
         aside {
             width: 25%;
-            background-color: {{ cv.sideColor }};
+            {% if cv.asideBlock.backgroundColor %}
+                background-color: {{ cv.asideBlock.backgroundColor }};
+            {% endif %}
+        }
+
+        aside > div {
+            {% if cv.asideBlock.padding %}
+                padding: {{ cv.asideBlock.padding.number ?: 0 }}{{ cv.asideBlock.padding.type ?: ''}} 0;
+            {% endif %}
         }
 
         main {
             width: 75%;
-            {% if cv.mainColor %}
-                background-color: {{ cv.mainColor }};
-            {% endif %}
-            {% if cv.textMainColor %}
-                color: {{ cv.textMainColor }};
-            {% endif %}
             padding: 0;
+            {% if cv.mainBlock.backgroundColor %}
+                background-color: {{ cv.mainBlock.backgroundColor }};
+            {% endif %}
+        }
+
+        main h1 {
+            {% if cv.mainBlock.mainTitle %}
+                color: {{ cv.mainBlock.mainTitle.color ?: '#000'}};
+                margin: {{ cv.mainBlock.mainTitle.merge.number ?: '0'}}{{cv.mainBlock.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        main h2 {
+            {% if cv.mainBlock.subTitle %}
+                color: {{ cv.mainBlock.subTitle.color ?: '#000'}};
+                margin: {{ cv.mainBlock.subTitle.merge.number ?: '0'}}{{ cv.mainBlock.subTitle.merge.type ?: '' }};
+            {% endif %}
+        }
+
+        main p {
+            {% if cv.mainBlock.paragraph %}
+                color: {{ cv.mainBlock.paragraph.color ?: '#000'}};
+                margin: {{ cv.mainBlock.paragraph.merge.number ?: '0'}}{{ cv.mainBlock.paragraph.merge.type ?: '' }};
+            {% endif %}
         }
 
         .head {
-            {% if cv.headBGColor is not null %}
-                background-color: {{ cv.headBGColor }};
+            {% if cv.header.backgroundColor %}
+                background-color: {{ cv.header.backgroundColor }};
             {% endif %}
-            {% if cv.headTextColor is not null %}
-                color: {{cv.headTextColor}};
+            {% if cv.header.padding %}
+                padding: {{ cv.header.padding.number ?: 0 }}{{ cv.header.padding.type ?: ''}} 0;
             {% endif %}
         }
 
@@ -51,56 +78,72 @@
             margin: auto;
         }
 
+        aside h1 {
+            {% if cv.asideBlock %}
+                color: {{ cv.asideBlock.mainTitle.color ?: '#000'}};
+                margin: {{ cv.asideBlock.mainTitle.merge.number ?: '0'}}{{cv.asideBlock.mainTitle.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        aside h2 {
+            {% if cv.asideBlock %}
+                color: {{ cv.asideBlock.subTitle.color ?: '#000'}};
+                margin: {{ cv.asideBlock.subTitle.merge.number ?: '0'}}{{cv.asideBlock.subTitle.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        aside p {
+            {% if cv.mainBlock %}
+                color: {{ cv.mainBlock.paragraph.color ?: '#000'}};
+                margin: {{ cv.mainBlock.paragraph.merge.number ?: '0'}}{{cv.asideBlock.paragraph.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        main h1 {
+            {% if cv.mainBlock %}
+                color: {{ cv.mainBlock.mainTitle.color ?: '#000'}};
+                margin: {{ cv.mainBlock.mainTitle.merge.number ?: '0'}}{{cv.mainBlock.mainTitle.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        main h2 {
+            {% if cv.asideBlock %}
+                color: {{ cv.mainBlock.subTitle.color ?: '#000'}};
+                margin: {{ cv.mainBlock.subTitle.merge.number ?: '0'}}{{cv.mainBlock.subTitle.merge.type ?: ''}};
+            {% endif %}
+        }
+
+        main p {
+            {% if cv.asideBlock %}
+                color: {{ cv.mainBlock.paragraph.color ?: '#000'}};
+                margin: {{ cv.mainBlock.paragraph.merge.number ?: '0'}}{{cv.mainBlock.paragraph.merge.type ?: ''}};
+            {% endif %}
+        }
+
         .row {
             display: flex;
-        }
-
-        .padding-2 {
-            padding: 2rem;
-        }
-
-        .padding-x-2 {
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-
-        .padding-y-2 {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-
-        .padding-1 {
-            padding: 1rem;
-        }
-
-        .padding-x-1 {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-
-        .padding-y-1 {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
         }
     </style>
     <aside>
         {% if cv.profileImg %}
             <img src='{{ cv.profileImg }}' alt=''>
         {% endif %}
-        <h2 style='color: {{ cv.titleSideColor ?: 'unset' }};'>Coordonnées</h2>
-        <h3><strong>{{ cv.user.email }}</strong></h3>
-        {% if cv.user.coordinates %}
-            <p><strong>{% trans %}Phone{% endtrans %}</strong></p>
-            <p>{{ cv.user.coordinates.phone }}</p>
-            <p><strong>{% trans %}Adress{% endtrans %}</strong></p>
-            <p>{{ cv.user.coordinates.street }}</p>
-            <p>{{ cv.user.coordinates.zipcode }} {{ cv.user.coordinates.city }}</p>
-            <p>{{ cv.user.coordinates.clearCountry }}</p>
-        {% endif %}
+        <div>
+            <h2 style=''>Coordonnées</h2>
+            <h3><strong>{{ cv.user.email }}</strong></h3>
+            {% if cv.user.coordinates %}
+                <p><strong>{% trans %}Phone{% endtrans %}</strong></p>
+                <p>{{ cv.user.coordinates.phone }}</p>
+                <p><strong>{% trans %}Adress{% endtrans %}</strong></p>
+                <p>{{ cv.user.coordinates.street }}</p>
+                <p>{{ cv.user.coordinates.zipcode }} {{ cv.user.coordinates.city }}</p>
+                <p>{{ cv.user.coordinates.clearCountry }}</p>
+            {% endif %}
+        </div>
         
         {% for bl in cv.blocks %}
             {% if bl.placement == 'side' %}
-                <h2 style='color: {{ cv.titleSideColor ?: 'unset' }};'>{{ bl.title }}</h2>
+                <h2 style=''>{{ bl.title }}</h2>
             {% endif %}
         {% endfor %}
     </aside>
@@ -114,7 +157,7 @@
         <div class='padding-1'>
             {% for bl in cv.blocks %}
                 {% if bl.placement == 'main' %}
-                    <h2 style='color: {{ cv.titleMainColor ?: 'unset' }};'>{{ bl.title }}</h2>
+                    <h2 style=''>{{ bl.title }}</h2>
                     
                     {% for line in bl.blockLines %}
                         <div class='row'>

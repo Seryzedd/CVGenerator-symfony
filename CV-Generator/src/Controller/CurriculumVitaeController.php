@@ -65,6 +65,7 @@ final class CurriculumVitaeController extends AbstractController
     #[Route('/update/{id}', name: 'app_curriculum_vitae_update')]
     public function update(Request $request, CurriculumVitae $id): Response 
     {
+        dump($id);
         
         $form = $this->createForm(CurriculumVitaeType::class, $id);
         $form->handleRequest($request);

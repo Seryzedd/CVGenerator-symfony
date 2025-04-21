@@ -4,6 +4,9 @@ namespace App\Form;
 
 use App\Entity\CurriculumVitae;
 use App\Entity\User;
+use App\Entity\AsideBlock;
+use App\Entity\MainBlock;
+use App\Entity\Header;
 use App\Form\BlockType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -13,8 +16,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Service\FindFilesService;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use App\Form\MainCVBlocksConfigurationType;
 
 class CurriculumVitaeType extends AbstractType
 {
@@ -37,27 +40,17 @@ class CurriculumVitaeType extends AbstractType
             ->add('description', TextareaType::class, [
                 'required' => false
             ])
-            ->add('sideColor', ColorType::class)
-            ->add('mainColor', ColorType::class)
-            ->add('textSideColor', ColorType::class)
-            ->add('textMainColor', ColorType::class)
-            ->add('headBGColor', ColorType::class, [
-                    'required' => false,
-                    'empty_data' => '',
-                    'label' => 'Header background color'
-                ])
-            ->add('headTextColor', ColorType::class,[
-                    'required' => false,
-                    'empty_data' => '',
-                    'label' => 'Header text color'
-                ])
-            ->add('titleSideColor', ColorType::class,[
-                'required' => false,
-                'empty_data' => '',
+            ->add('header', MainCVBlocksConfigurationType::class,[
+                'label' => 'Header configuration',
+                'data_class' => Header::class
             ])
-            ->add('titleMainColor', ColorType::class,[
-                'required' => false,
-                'empty_data' => '',
+            ->add('asideBlock', MainCVBlocksConfigurationType::class,[
+                'label' => 'Side configuration',
+                'data_class' => AsideBlock::class
+            ])
+            ->add('MainBlock', MainCVBlocksConfigurationType::class,[
+                'label' => 'Main configuration',
+                'data_class' => MainBlock::class
             ])
             ->add('blocks', CollectionType::class, [
                 'entry_type' => BlockType::class,

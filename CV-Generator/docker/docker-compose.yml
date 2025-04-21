@@ -1,4 +1,3 @@
-version: '3.0'
 services:
     web:
         image: php:8.3-apache
@@ -24,6 +23,9 @@ services:
         container_name: db
         ports:
             - "3306:3306"
+        volumes:
+            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ../mysql_data:/var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=64ra97!
             - MYSQL_DATABASE=CV-Generator
@@ -31,6 +33,20 @@ services:
             - MYSQL_PASSWORD=fapirmaf
         networks:
             - bridge_network
+    
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+            - 8081:80
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_PORT=3306
+            - PMA_HOST=mysql
+        networks:
+            - bridge_network
+        depends_on:
+            - mysql
 
 networks:
   bridge_network:

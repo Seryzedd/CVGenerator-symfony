@@ -24,25 +24,195 @@
             {{ form_row(form.template) }}
 
             <button class="btn btn-light text-primary align-items-center w-100 mb-2 d-flex justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                {% trans %}Colors{% endtrans %}
+                {% trans %}Aesthetics{% endtrans %}
                 <i class="fa-solid fa-angle-down"></i>
             </button>
 
             <div class="collapse" id="collapseExample">
-                <div class="border-top border-primary pt-3">
+                <div class="border-top border-primary bg-white pt-3 px-2">
+                    
                     <div class="row">
-                        <div class="col-md-6">
-                            {{ form_row(form.headBGColor) }}
-                            {{ form_row(form.titleSideColor) }}
-                            {{ form_row(form.sideColor) }}
-                            {{ form_row(form.textSideColor) }}
+                        <!-- Header block part -->
+                        <h4 class="text-primary col-12">{% trans %}Head part{% endtrans %}</h4>
+                        <div class="col-12">
+                            {{ form_row(form.header.backgroundColor) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.header.merge.number) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.header.merge.type) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.header.padding.number) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.header.padding.type) }}
+                        </div>
+
+                        <h5 class="text-secondary col-12">{% trans %}Main title{% endtrans %}</h5>
+                        <div class="col-md-4">
+                            {{ form_row(form.header.mainTitle.merge.number) }}
                         </div>
         
-                        <div class="col-md-6">
-                            {{ form_row(form.headTextColor) }}
-                            {{ form_row(form.titleMainColor) }}
-                            {{ form_row(form.mainColor) }}
-                            {{ form_row(form.textMainColor) }}
+                        <div class="col-md-4">
+                            {{ form_row(form.header.mainTitle.merge.type) }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form_row(form.header.mainTitle.color) }}
+                        </div>
+
+                        <h5 class="text-secondary col-12">{% trans %}Sub title{% endtrans %}</h5>
+                        <div class="col-md-4">
+                            {{ form_row(form.header.subTitle.merge.number) }}
+                        </div>
+        
+                        <div class="col-md-4">
+                            {{ form_row(form.header.subTitle.merge.type) }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form_row(form.header.subTitle.color) }}
+                        </div>
+
+                        <h5 class="text-secondary col-12">{% trans %}Paragraph{% endtrans %}</h5>
+                        <div class="col-md-4">
+                            {{ form_row(form.header.paragraph.merge.number) }}
+                        </div>
+        
+                        <div class="col-md-4">
+                            {{ form_row(form.header.paragraph.merge.type) }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form_row(form.header.paragraph.color) }}
+                        </div>
+
+                        <!-- Side block part -->
+                        <h4 class="text-primary col-12">{% trans %}Side part{% endtrans %}</h4>
+                        <div class="col-12">
+                            {{ form_row(form.asideBlock.backgroundColor) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.asideBlock.merge.number) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.asideBlock.merge.type) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.asideBlock.padding.number) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.asideBlock.padding.type) }}
+                        </div>
+
+                        <h5 class="text-secondary col-12">{% trans %}Main title{% endtrans %}</h5>
+                        <div class="col-md-4">
+                            {{ form_row(form.asideBlock.mainTitle.merge.number) }}
+                        </div>
+        
+                        <div class="col-md-4">
+                            {{ form_row(form.asideBlock.mainTitle.merge.type) }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form_row(form.asideBlock.mainTitle.color) }}
+                        </div>
+
+                        <h5 class="text-secondary col-12">{% trans %}Sub title{% endtrans %}</h5>
+                        <div class="col-md-4">
+                            {{ form_row(form.asideBlock.subTitle.merge.number) }}
+                        </div>
+        
+                        <div class="col-md-4">
+                            {{ form_row(form.asideBlock.subTitle.merge.type) }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form_row(form.asideBlock.subTitle.color) }}
+                        </div>
+
+                        <h5 class="text-secondary col-12">{% trans %}Paragraph{% endtrans %}</h5>
+                        <div class="col-md-4">
+                            {{ form_row(form.asideBlock.paragraph.merge.number) }}
+                        </div>
+        
+                        <div class="col-md-4">
+                            {{ form_row(form.asideBlock.paragraph.merge.type) }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form_row(form.asideBlock.paragraph.color) }}
+                        </div>
+
+                        <!-- Side block part -->
+                        <h4 class="text-primary col-12">{% trans %}Main part{% endtrans %}</h4>
+                        <div class="col-12">
+                            {{ form_row(form.MainBlock.backgroundColor) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.MainBlock.merge.number) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.MainBlock.merge.type) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.MainBlock.padding.number) }}
+                        </div>
+
+                        <div class="col-6">
+                            {{ form_row(form.MainBlock.padding.type) }}
+                        </div>
+
+                        <h5 class="text-secondary col-12">{% trans %}Main title{% endtrans %}</h5>
+                        <div class="col-md-4">
+                            {{ form_row(form.MainBlock.mainTitle.merge.number) }}
+                        </div>
+        
+                        <div class="col-md-4">
+                            {{ form_row(form.MainBlock.mainTitle.merge.type) }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form_row(form.MainBlock.mainTitle.color) }}
+                        </div>
+
+                        <h5 class="text-secondary col-12">{% trans %}Sub title{% endtrans %}</h5>
+                        <div class="col-md-4">
+                            {{ form_row(form.MainBlock.subTitle.merge.number) }}
+                        </div>
+        
+                        <div class="col-md-4">
+                            {{ form_row(form.MainBlock.subTitle.merge.type) }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form_row(form.MainBlock.subTitle.color) }}
+                        </div>
+
+                        <h5 class="text-secondary col-12">{% trans %}Paragraph{% endtrans %}</h5>
+                        <div class="col-md-4">
+                            {{ form_row(form.MainBlock.paragraph.merge.number) }}
+                        </div>
+        
+                        <div class="col-md-4">
+                            {{ form_row(form.MainBlock.paragraph.merge.type) }}
+                        </div>
+
+                        <div class="col-md-4">
+                            {{ form_row(form.MainBlock.paragraph.color) }}
                         </div>
                     </div>
                 </div>
