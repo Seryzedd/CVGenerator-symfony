@@ -1,3 +1,6 @@
+<head>
+    <script src='https://kit.fontawesome.com/266324d9f9.js' crossorigin='anonymous'></script>
+</head>
 <body>
     <style>
         body {
@@ -156,7 +159,12 @@
         <div class='padding-1'>
             {% for bl in cv.blocks %}
                 {% if bl.placement == 'main' %}
-                    <h2 style=''>{{ bl.title }}</h2>
+                    <h2 style=''>
+                        {% if bl.prefixClass %}
+                            <i class='{{ bl.prefixClass }}'></i>
+                        {% endif %}
+                        {{ bl.title }}
+                    </h2>
                     
                     {% for line in bl.blockLines %}
                         <div class='row'>
@@ -210,7 +218,12 @@
         
         {% for bl in cv.blocks %}
             {% if bl.placement == 'side' %}
-                <h2 style=''>{{ bl.title }}</h2>
+                <h2 style=''>
+                    {% if bl.prefixClass %}
+                        <i class='{{ bl.prefixClass }}'></i>
+                    {% endif %}
+                    {{ bl.title }}
+                </h2>
             {% endif %}
         {% endfor %}
     </aside>

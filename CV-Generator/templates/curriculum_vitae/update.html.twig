@@ -15,3 +15,8 @@
         {% include 'curriculum_vitae/CVform.html.twig' with {'form': form} %}
     </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ asset('icons.js') }}"></script>
+{% endblock %}

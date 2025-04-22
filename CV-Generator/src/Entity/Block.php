@@ -18,6 +18,10 @@ class Block
     #[ORM\Column(length: 150)]
     private ?string $title = "";
 
+    #[ORM\Column(length: 100)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?string $prefixClass = "";
+
     #[ORM\ManyToOne(inversedBy: 'blocks', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?CurriculumVitae $cv = null;
@@ -58,6 +62,18 @@ class Block
     public function setTitle(string $title): static
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getPrefixClass(): ?string
+    {
+        return $this->prefixClass;
+    }
+
+    public function setPrefixClass(?string $prefix): static
+    {
+        $this->prefixClass = $prefix;
 
         return $this;
     }
