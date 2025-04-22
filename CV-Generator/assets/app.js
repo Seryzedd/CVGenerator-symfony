@@ -13,6 +13,34 @@ $('.alert .btn-close').on('click', function() {
 })
 
 $(document).ready(function() {
+    // dropzone
+    $('.dropzone').on('dragover', function(e){
+        e.preventDefault();  // Ajouté - crucial pour que drop fonctionne
+        e.stopPropagation();
+        $(this).find('.hover').css({'opacity': '0.8', 'z-index': '10'})
+    });
+
+    $('.dropzone').on('dragleave', function(e){
+        e.preventDefault();  // Ajouté - crucial pour que drop fonctionne
+        e.stopPropagation();
+        $(this).find('.hover').css({'opacity': '0', 'z-index': '0'})
+    });
+
+    $('.dropzone').on('drop', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        
+        $(this).find('.hover').css({'opacity': '0', 'z-index': '0'});
+        
+        var files = e.originalEvent.dataTransfer.files;
+        var input = $(this).find('input[type="file"]');
+        
+        if (input.length > 0) {
+            input[0].files = files;
+            input.trigger('change');
+        }
+    });
+
     // loading
     const loader = document.getElementById('loader');
     loader.addEventListener('beforeunload', function() {

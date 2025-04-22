@@ -1,0 +1,18 @@
+<div class="row align-items-center dropzone">
+    <div class="hover rounded  border-dark h-100 text-center justify-content-center bg-white d-flex align-items-center border text-muted">
+        <h3 class="mb-0"><i class="fa-solid fa-download me-2"></i>{% trans %}Drop file to set{% endtrans %}</h3>
+    </div>
+    <div class="col-4 offset-4 col-md-2 offset-md-0">
+        <div id="img_preview" class="p-2 text-center text-muted">
+            {% if form.vars.data.profileImg %}
+                <img src="{{ form.vars.data.profileImg }}" alt="">
+            {% else %}
+                <i class="fa-solid fa-camera fa-lg"></i>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-12 col-md-10">
+        {{ form_row(input) }}
+    </div>
+</div>

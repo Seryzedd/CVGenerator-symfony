@@ -5,21 +5,8 @@
 
             {{ form_row(form.description, {attr: {rows: '5'}}) }}
 
-            <div class="row align-items-center">
-                <div class="col-4 offset-4 col-md-2 offset-md-0">
-                    <div id="img_preview" class="p-2 text-center text-muted">
-                        {% if form.vars.data.profileImg %}
-                            <img src="{{ form.vars.data.profileImg }}" alt="">
-                        {% else %}
-                            <i class="fa-solid fa-camera fa-lg"></i>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-10">
-                    {{ form_row(form.profileImg) }}
-                </div>
-            </div>
+            
+            {% include "form/dropzone.html.twig" with {'input': form.profileImg} %}
             
             {{ form_row(form.template) }}
 

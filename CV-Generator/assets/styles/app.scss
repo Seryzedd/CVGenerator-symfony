@@ -60,6 +60,22 @@ body {
     transition: 0.2s;
 }
 
+// --------- dropzone file ------------
+.dropzone > .hover {
+    position:absolute;
+    opacity: 0;
+    z-index: 0;
+    transition: 0.3s;
+}
+
+.dropzone > :not(.hover) {
+    z-index: 5;
+}
+
+.dropzone {
+    position: relative;
+}
+
 // ---------- checkbox styles -------------
 body {
     min-height: 95vh;
